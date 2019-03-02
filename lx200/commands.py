@@ -11,6 +11,8 @@ def is_command(data, command):
 
 
 class BaseCommand:
+    value = None
+
     @classmethod
     def from_data(cls, data):
         """ Tries to parse the given data block as this command.
@@ -48,6 +50,14 @@ class SimpleCommand(BaseCommand):
             return cls.pattern.fullmatch(data)
         except AttributeError:
             return (data == cls.pattern) or (data == bytes(cls.pattern, 'utf-8'))
+
+
+class SimpleNumericCommand(SimpleCommand):
+    value = 0
+
+    def parse(self, matches, data):
+        self.value = int(matches.group(1))
+        return self
 
 
 # These two are here for completeness only, as they do not use the start and
