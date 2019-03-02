@@ -7,7 +7,7 @@ COMMAND_END = '#'
 
 
 def is_command(data, command):
-    return command.can_be(data) != None
+    return command.can_be(data) is not None
 
 
 class BaseCommand:
