@@ -84,7 +84,7 @@ class AltAzAlignment(SimpleCommand):
 # Anti Backlash
 
 class SetAltitudeAntiBacklash(SimpleCommand):
-    pattern = re.compile(r'^\$BA(\d\d)$')
+    pattern = re.compile(r'^\$BA(\d{1,2})$')
 
 
 class SetDeclinationAntiBacklash(SetAltitudeAntiBacklash):
@@ -92,7 +92,7 @@ class SetDeclinationAntiBacklash(SetAltitudeAntiBacklash):
 
 
 class SetAzimuthAntiBacklash(SimpleCommand):
-    pattern = re.compile(r'^\$BZ(\d\d)$')
+    pattern = re.compile(r'^\$BZ(\d{1,2})$')
 
 
 class SetRightAscentionAntiBacklash(SetAzimuthAntiBacklash):
