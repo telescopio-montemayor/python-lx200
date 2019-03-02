@@ -12,10 +12,10 @@ def is_command(data, command):
 
 class BaseCommand:
     @classmethod
-    def parse(cls, data):
+    def from_data(cls, data):
         """ Tries to parse the given data block as this command.
         If successful returns a new instance of this command properly
-        initialized or None otherwise"""
+        initialized"""
         raise NotImplementedError
 
     @classmethod
@@ -28,8 +28,16 @@ class SimpleCommand(BaseCommand):
     pattern = None
 
     @classmethod
-    def parse(cls, data):
-        raise NotImplementedError
+    def from_data(cls, data):
+        matches = cls.can_be(data)
+        if not matches:
+            raise ValueError('Provided block of data "{}" is not valid for {}'.format(data, cls.__qualname__))
+        else:
+            instance = cls()
+            return instance.parse(matches, data)
+
+    def parse(self, matches, data=None):
+        return self
 
     @classmethod
     def can_be(cls, data):
