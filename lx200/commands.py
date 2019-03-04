@@ -328,3 +328,205 @@ class GetDeepskySearchString(SimpleCommand):
 
 class GetAzimuth(SimpleCommand):
     pattern = 'GZ'
+
+
+# Home Position
+
+class CalibrateHomePosition(SimpleCommand):
+    pattern = 'hC'
+
+
+class SeekHomePosition(SimpleCommand):
+    pattern = 'hF'
+
+
+# XXX FIXME: probably better to implement a more flexible interface
+class BypassDSTEntry(SimpleNumericCommand):
+    # YYMMDDHHMMSS
+    pattern = re.compile(r'^hI(\d{12})$')
+
+
+class Sleep(SimpleCommand):
+    pattern = 'hN'
+
+
+class Park(SimpleCommand):
+    pattern = 'hP'
+
+
+class SetParkPosition(SimpleCommand):
+    pattern = 'hS'
+
+
+class WakeUp(SimpleCommand):
+    pattern = 'hW'
+
+
+class QueryHomeStatus(SimpleCommand):
+    pattern = 'h?'
+
+
+# Time Format
+
+class ToggleTimeFormat(SimpleCommand):
+    pattern = 'H'
+
+
+# Initialization
+
+class Initialize(SimpleCommand):
+    pattern = 'I'
+
+
+# XXX TODO: Object Library
+
+# Movement Commands
+
+class SlewToTargetAltAz(SimpleCommand):
+    pattern = 'MA'
+
+
+class GuideNorth(SimpleNumericCommand):
+    pattern = re.compile(r'^Mgn(\d{4})$')
+
+
+class GuideSouth(SimpleNumericCommand):
+    pattern = re.compile(r'^Mgs(\d{4})$')
+
+
+class GuideEast(SimpleNumericCommand):
+    pattern = re.compile(r'^Mge(\d{4})$')
+
+
+class GuideWest(SimpleNumericCommand):
+    pattern = re.compile(r'^Mgw(\d{4})$')
+
+
+class MoveEast(SimpleCommand):
+    pattern = 'Me'
+
+
+class MoveNorth(SimpleCommand):
+    pattern = 'Mn'
+
+
+class MoveSouth(SimpleCommand):
+    pattern = 'Ms'
+
+
+class MoveWest(SimpleCommand):
+    pattern = 'Mw'
+
+
+class SlewToTargetObject(SlewToTargetAltAz):
+    pattern = 'MS'
+
+
+class SlewToTarget(SlewToTargetObject):
+    pass
+
+
+# Precision toggle
+
+class HighPrecisionToggle(SimpleCommand):
+    pattern = 'P'
+
+
+# XXX FIXME: This also appears documented as 'User Format Control'
+class PrecisionPositionToggle(SimpleCommand):
+    pattern = 'U'
+
+
+# XXX TODO: Smart Drive Control
+
+# Movement Commands (halt)
+
+class HaltAll(SimpleCommand):
+    pattern = 'Q'
+
+
+class HaltEastward(SimpleCommand):
+    pattern = 'Qe'
+
+
+class HaltNorthwawrd(SimpleCommand):
+    pattern = 'Qn'
+
+
+class HaltSouthward(SimpleCommand):
+    pattern = 'Qs'
+
+
+class HaltWestward(SimpleCommand):
+    pattern = 'Qw'
+
+
+# XXX TODO: Field de-rotator
+
+# Slew Rate
+
+class SetSlewRateToCentering(SimpleCommand):
+    pattern = 'RC'
+
+
+class SetSlewRateToGuiding(SimpleCommand):
+    pattern = 'RG'
+
+
+class SetSlewRateToFinding(SimpleCommand):
+    pattern = 'RM'
+
+
+class SetSlewRateToMax(SimpleCommand):
+    pattern = 'RS'
+
+
+class SetRightAscentionSlewRate(SimpleNumericCommand):
+    pattern = re.compile(r'^RA(\d\d\.\d)$')
+
+
+class SetAzimuthSlewRate(SetRightAscentionSlewRate):
+    pass
+
+
+class SetDeclinationSlewRate(SimpleNumericCommand):
+    pattern = re.compile(r'^RE(\d\d\.\d)$')
+
+
+class SetAltitudeSlewRate(SetDeclinationSlewRate):
+    pass
+
+
+class SetGuideRate(SimpleNumericCommand):
+    pattern = re.compile(r'^Rg(\d\d\.\d)$')
+
+
+# XXX TODO: Telescope Set Commands
+
+# Tracking
+
+class IncrementManualRate(SimpleCommand):
+    pattern = 'T+'
+
+
+class DecrementManualRate(SimpleCommand):
+    pattern = 'T-'
+
+
+class SetLunarTracking(SimpleCommand):
+    pattern = 'TL'
+
+
+class SelectCustomTrackingRate(SimpleCommand):
+    pattern = 'TM'
+
+
+class SelectSiderealTrackingRate(SimpleCommand):
+    pattern = 'TQ'
+
+
+class SelectSolarTrackingRate(SimpleCommand):
+    pattern = 'TS'
+
+
+# XXX TODO: PEC
