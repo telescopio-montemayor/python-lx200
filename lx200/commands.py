@@ -149,3 +149,182 @@ class DistanceBars(SimpleCommand):
 
 
 # Get Telescope Information
+
+class GetAlignmentMenuEntry0(SimpleCommand):
+    pattern = 'G0'
+
+
+class GetAlignmentMenuEntry1(SimpleCommand):
+    pattern = 'G1'
+
+
+class GetAlignmentMenuEntry2(SimpleCommand):
+    pattern = 'G2'
+
+
+class GetLocalTime12H(SimpleCommand):
+    pattern = 'Ga'
+
+
+class GetAltitude(SimpleCommand):
+    pattern = 'GA'
+
+
+class GetBrowseBrighterMagnitudeLimit(SimpleCommand):
+    pattern = 'Gb'
+
+
+class GetDate(SimpleCommand):
+    pattern = 'GC'
+
+
+class GetClockFormat(SimpleCommand):
+    pattern = 'Gc'
+
+
+class GetDeclination(SimpleCommand):
+    pattern = 'GD'
+
+
+class GetSelectedObjectDeclination(SimpleCommand):
+    pattern = 'Gd'
+
+
+class GetSelectedTargetDeclination(GetSelectedObjectDeclination):
+    pass
+
+
+class GetSelenographicLatitude(SimpleCommand):
+    pattern = 'GE'
+
+
+class GetSelenographicLongitude(SimpleCommand):
+    pattern = 'Ge'
+
+
+class GetFindFieldDiameter(SimpleCommand):
+    pattern = 'GF'
+
+
+class GetBrowseFaintMagnitudeLimit(SimpleCommand):
+    pattern = 'Gf'
+
+
+class GetUTCOffsetTime(SimpleCommand):
+    pattern = 'GG'
+
+
+class GetSiteLongitude(SimpleCommand):
+    pattern = 'Gg'
+
+
+class GetDailySavingsTimeSettings(SimpleCommand):
+    pattern = 'GH'
+
+
+class GetHighLimit(SimpleCommand):
+    pattern = 'Gh'
+
+
+class GetLocalTime24H(SimpleCommand):
+    pattern = 'GL'
+
+
+class GetDistanceToMeridian(SimpleCommand):
+    pattern = 'Gm'
+
+
+class GetLargerSizeLimit(SimpleCommand):
+    pattern = 'Gl'
+
+
+class GetSite1Name(SimpleCommand):
+    pattern = 'GM'
+
+
+class GetSite2Name(SimpleCommand):
+    pattern = 'GN'
+
+
+class GetSite3Name(SimpleCommand):
+    pattern = 'GO'
+
+
+class GetSite4Name(SimpleCommand):
+    pattern = 'GP'
+
+
+class GetBacklashValues(SimpleCommand):
+    pattern = 'GpB'
+
+
+class GetHomeData(SimpleCommand):
+    pattern = 'GpH'
+
+
+class GetSensorOffsets(SimpleCommand):
+    pattern = 'GpS'
+
+
+class GetLowerLimit(SimpleCommand):
+    pattern = 'Go'
+
+
+class GetMinimumQualityForFind(SimpleCommand):
+    pattern = 'Gq'
+
+
+class GetRightAscencion(SimpleCommand):
+    pattern = 'GR'
+
+
+class GetSelectedObjectRightAscencion(SimpleCommand):
+    pattern = 'Gr'
+
+
+class GetSelectedTargetRightAscencion(GetSelectedObjectRightAscencion):
+    pass
+
+
+class GetSiderealTime(SimpleCommand):
+    pattern = 'GS'
+
+
+class GetSmallerSizeLimit(SimpleCommand):
+    pattern = 'Gs'
+
+
+class GetTrackingRate(SimpleCommand):
+    pattern = 'GT'
+
+
+class GetSiteLatitude(SimpleCommand):
+    pattern = 'Gt'
+
+
+class GetFirmwareDate(SimpleCommand):
+    pattern = 'GVD'
+
+
+class GetFirmwareNumber(SimpleCommand):
+    pattern = 'GVN'
+
+
+class GetProductName(SimpleCommand):
+    pattern = 'GVP'
+
+
+class GetFirmwareTime(SimpleCommand):
+    pattern = 'GVT'
+
+
+class GetAlignmentStatus(SimpleCommand):
+    pattern = 'GW'
+
+
+class GetDeepskySearchString(SimpleCommand):
+    pattern = 'Gy'
+
+
+class GetAzimuth(SimpleCommand):
+    pattern = 'GZ'
