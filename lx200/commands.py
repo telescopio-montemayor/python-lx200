@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import re
+import attr
 
 COMMAND_START = ':'
 COMMAND_END = '#'
@@ -10,8 +11,9 @@ def is_command(data, command):
     return command.can_be(data) is not None
 
 
+@attr.s
 class BaseCommand:
-    value = None
+    value = attr.ib(default=None)
 
     @classmethod
     def from_data(cls, data):
@@ -53,7 +55,6 @@ class SimpleCommand(BaseCommand):
 
 
 class SimpleNumericCommand(SimpleCommand):
-    value = 0
     default_type = int
     type_map = {}
 
@@ -357,8 +358,15 @@ class SeekHomePosition(SimpleCommand):
     pattern = 'hF'
 
 
+@attr.s
 class BypassDSTEntry(SimpleNumericCommand):
     # YYMMDDHHMMSS
+    year = attr.ib(default=None)
+    month = attr.ib(default=None)
+    day = attr.ib(default=None)
+    hours = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
     pattern = re.compile(r'^hI(?P<year>\d{2})(?P<month>\d{2})(?P<day>\d{2})(?P<hours>\d{2})(?P<minutes>\d{2})(?P<seconds>\d{2})$')
 
 
