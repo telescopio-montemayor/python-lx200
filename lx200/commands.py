@@ -54,9 +54,26 @@ class SimpleCommand(BaseCommand):
 
 class SimpleNumericCommand(SimpleCommand):
     value = 0
+    default_type = int
+    type_map = {}
 
     def parse(self, matches, data):
-        self.value = int(matches.group(1))
+        named_groups = matches.groupdict()
+
+        if not named_groups:
+            self.value = self.default_type(matches.group(1))
+            return self
+
+        for (name, value) in named_groups.items():
+            converter = self.type_map.get(name, self.default_type)
+            # If a group is optional its value will be None
+            # built-in types (like int, float) do not handle None as a valid argument
+            # however, this way we can get a sane default
+            if value is not None:
+                setattr(self, name, converter(value))
+            else:
+                setattr(self, name, converter())
+
         return self
 
 
