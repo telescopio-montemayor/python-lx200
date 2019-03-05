@@ -7,6 +7,14 @@ COMMAND_START = ':'
 COMMAND_END = '#'
 
 
+ALL_COMMANDS = []
+
+
+def register(command):
+    ALL_COMMANDS.append(command)
+    return command
+
+
 def is_command(data, command):
     return command.can_be(data) is not None
 
@@ -80,11 +88,13 @@ class SimpleNumericCommand(SimpleCommand):
 
 # These two are here for completeness only, as they do not use the start and
 # end delimiters shared by the rest of the command set.
+@register
 class ACK(SimpleCommand):
     """ Alignment Query """
     pattern = '\x06'
 
 
+@register
 class EOT(SimpleCommand):
     """ Firmware Download Request """
     pattern = '\x04'
@@ -92,71 +102,86 @@ class EOT(SimpleCommand):
 
 # Alignment related commands
 
+@register
 class AutomaticAlignment(SimpleCommand):
     """ Start Telescope Automatic Alignment Sequence [Autostar II/RCX400 only] """
     pattern = 'Aa'
 
 
+@register
 class LandAlignment(SimpleCommand):
     pattern = 'AL'
 
 
+@register
 class PolarAlignment(SimpleCommand):
     pattern = 'AP'
 
 
+@register
 class AltAzAlignment(SimpleCommand):
     pattern = 'AA'
 
 
 # Anti Backlash
 
+@register
 class SetAltitudeAntiBacklash(SimpleNumericCommand):
     pattern = re.compile(r'^\$BA(\d{1,2})$')
 
 
+@register
 class SetDeclinationAntiBacklash(SetAltitudeAntiBacklash):
     pass
 
 
+@register
 class SetAzimuthAntiBacklash(SimpleNumericCommand):
     pattern = re.compile(r'^\$BZ(\d{1,2})$')
 
 
+@register
 class SetRightAscentionAntiBacklash(SetAzimuthAntiBacklash):
     pass
 
 
 # Reticule / Accessories
 
+@register
 class IncreaseReticleBrightness(SimpleCommand):
     pattern = 'B+'
 
 
+@register
 class DecreaseReticleBrightness(SimpleCommand):
     pattern = 'B-'
 
 
+@register
 class SetReticleFlashRate(SimpleCommand):
     pattern = re.compile(r'^\$B(\d)$')
 
 
+@register
 class SetReticleFlashDutyCycle(SimpleCommand):
     pattern = re.compile(r'^\$BD(\d{1,2})$')
 
 
 # Sync Control
 
+@register
 class SyncSelenographic(SimpleCommand):
     pattern = 'CL'
 
 
+@register
 class SyncDatabase(SimpleCommand):
     pattern = 'CM'
 
 
 # Distance Bars
 
+@register
 class DistanceBars(SimpleCommand):
     pattern = 'D'
 
@@ -168,196 +193,244 @@ class DistanceBars(SimpleCommand):
 
 # Get Telescope Information
 
+@register
 class GetAlignmentMenuEntry0(SimpleCommand):
     pattern = 'G0'
 
 
+@register
 class GetAlignmentMenuEntry1(SimpleCommand):
     pattern = 'G1'
 
 
+@register
 class GetAlignmentMenuEntry2(SimpleCommand):
     pattern = 'G2'
 
 
+@register
 class GetLocalTime12H(SimpleCommand):
     pattern = 'Ga'
 
 
+@register
 class GetAltitude(SimpleCommand):
     pattern = 'GA'
 
 
+@register
 class GetBrowseBrighterMagnitudeLimit(SimpleCommand):
     pattern = 'Gb'
 
 
+@register
 class GetDate(SimpleCommand):
     pattern = 'GC'
 
 
+@register
 class GetClockFormat(SimpleCommand):
     pattern = 'Gc'
 
 
+@register
 class GetDeclination(SimpleCommand):
     pattern = 'GD'
 
 
+@register
 class GetSelectedObjectDeclination(SimpleCommand):
     pattern = 'Gd'
 
 
+@register
 class GetSelectedTargetDeclination(GetSelectedObjectDeclination):
     pass
 
 
+@register
 class GetSelenographicLatitude(SimpleCommand):
     pattern = 'GE'
 
 
+@register
 class GetSelenographicLongitude(SimpleCommand):
     pattern = 'Ge'
 
 
+@register
 class GetFindFieldDiameter(SimpleCommand):
     pattern = 'GF'
 
 
+@register
 class GetBrowseFaintMagnitudeLimit(SimpleCommand):
     pattern = 'Gf'
 
 
+@register
 class GetUTCOffsetTime(SimpleCommand):
     pattern = 'GG'
 
 
+@register
 class GetSiteLongitude(SimpleCommand):
     pattern = 'Gg'
 
 
+@register
 class GetDailySavingsTimeSettings(SimpleCommand):
     pattern = 'GH'
 
 
+@register
 class GetHighLimit(SimpleCommand):
     pattern = 'Gh'
 
 
+@register
 class GetLocalTime24H(SimpleCommand):
     pattern = 'GL'
 
 
+@register
 class GetDistanceToMeridian(SimpleCommand):
     pattern = 'Gm'
 
 
+@register
 class GetLargerSizeLimit(SimpleCommand):
     pattern = 'Gl'
 
 
+@register
 class GetSite1Name(SimpleCommand):
     pattern = 'GM'
 
 
+@register
 class GetSite2Name(SimpleCommand):
     pattern = 'GN'
 
 
+@register
 class GetSite3Name(SimpleCommand):
     pattern = 'GO'
 
 
+@register
 class GetSite4Name(SimpleCommand):
     pattern = 'GP'
 
 
+@register
 class GetBacklashValues(SimpleCommand):
     pattern = 'GpB'
 
 
+@register
 class GetHomeData(SimpleCommand):
     pattern = 'GpH'
 
 
+@register
 class GetSensorOffsets(SimpleCommand):
     pattern = 'GpS'
 
 
+@register
 class GetLowerLimit(SimpleCommand):
     pattern = 'Go'
 
 
+@register
 class GetMinimumQualityForFind(SimpleCommand):
     pattern = 'Gq'
 
 
+@register
 class GetRightAscencion(SimpleCommand):
     pattern = 'GR'
 
 
+@register
 class GetSelectedObjectRightAscencion(SimpleCommand):
     pattern = 'Gr'
 
 
+@register
 class GetSelectedTargetRightAscencion(GetSelectedObjectRightAscencion):
     pass
 
 
+@register
 class GetSiderealTime(SimpleCommand):
     pattern = 'GS'
 
 
+@register
 class GetSmallerSizeLimit(SimpleCommand):
     pattern = 'Gs'
 
 
+@register
 class GetTrackingRate(SimpleCommand):
     pattern = 'GT'
 
 
+@register
 class GetSiteLatitude(SimpleCommand):
     pattern = 'Gt'
 
 
+@register
 class GetFirmwareDate(SimpleCommand):
     pattern = 'GVD'
 
 
+@register
 class GetFirmwareNumber(SimpleCommand):
     pattern = 'GVN'
 
 
+@register
 class GetProductName(SimpleCommand):
     pattern = 'GVP'
 
 
+@register
 class GetFirmwareTime(SimpleCommand):
     pattern = 'GVT'
 
 
+@register
 class GetAlignmentStatus(SimpleCommand):
     pattern = 'GW'
 
 
+@register
 class GetDeepskySearchString(SimpleCommand):
     pattern = 'Gy'
 
 
+@register
 class GetAzimuth(SimpleCommand):
     pattern = 'GZ'
 
 
 # Home Position
 
+@register
 class CalibrateHomePosition(SimpleCommand):
     pattern = 'hC'
 
 
+@register
 class SeekHomePosition(SimpleCommand):
     pattern = 'hF'
 
 
+@register
 @attr.s
 class BypassDSTEntry(SimpleNumericCommand):
     # YYMMDDHHMMSS
@@ -370,34 +443,41 @@ class BypassDSTEntry(SimpleNumericCommand):
     pattern = re.compile(r'^hI(?P<year>\d{2})(?P<month>\d{2})(?P<day>\d{2})(?P<hours>\d{2})(?P<minutes>\d{2})(?P<seconds>\d{2})$')
 
 
+@register
 class Sleep(SimpleCommand):
     pattern = 'hN'
 
 
+@register
 class Park(SimpleCommand):
     pattern = 'hP'
 
 
+@register
 class SetParkPosition(SimpleCommand):
     pattern = 'hS'
 
 
+@register
 class WakeUp(SimpleCommand):
     pattern = 'hW'
 
 
+@register
 class QueryHomeStatus(SimpleCommand):
     pattern = 'h?'
 
 
 # Time Format
 
+@register
 class ToggleTimeFormat(SimpleCommand):
     pattern = 'H'
 
 
 # Initialization
 
+@register
 class Initialize(SimpleCommand):
     pattern = 'I'
 
@@ -406,57 +486,70 @@ class Initialize(SimpleCommand):
 
 # Movement Commands
 
+@register
 class SlewToTargetAltAz(SimpleCommand):
     pattern = 'MA'
 
 
+@register
 class GuideNorth(SimpleNumericCommand):
     pattern = re.compile(r'^Mgn(\d{4})$')
 
 
+@register
 class GuideSouth(SimpleNumericCommand):
     pattern = re.compile(r'^Mgs(\d{4})$')
 
 
+@register
 class GuideEast(SimpleNumericCommand):
     pattern = re.compile(r'^Mge(\d{4})$')
 
 
+@register
 class GuideWest(SimpleNumericCommand):
     pattern = re.compile(r'^Mgw(\d{4})$')
 
 
+@register
 class MoveEast(SimpleCommand):
     pattern = 'Me'
 
 
+@register
 class MoveNorth(SimpleCommand):
     pattern = 'Mn'
 
 
+@register
 class MoveSouth(SimpleCommand):
     pattern = 'Ms'
 
 
+@register
 class MoveWest(SimpleCommand):
     pattern = 'Mw'
 
 
+@register
 class SlewToTargetObject(SlewToTargetAltAz):
     pattern = 'MS'
 
 
+@register
 class SlewToTarget(SlewToTargetObject):
     pass
 
 
 # Precision toggle
 
+@register
 class HighPrecisionToggle(SimpleCommand):
     pattern = 'P'
 
 
 # XXX FIXME: This also appears documented as 'User Format Control'
+@register
 class PrecisionPositionToggle(SimpleCommand):
     pattern = 'U'
 
@@ -465,22 +558,27 @@ class PrecisionPositionToggle(SimpleCommand):
 
 # Movement Commands (halt)
 
+@register
 class HaltAll(SimpleCommand):
     pattern = 'Q'
 
 
+@register
 class HaltEastward(SimpleCommand):
     pattern = 'Qe'
 
 
+@register
 class HaltNorthwawrd(SimpleCommand):
     pattern = 'Qn'
 
 
+@register
 class HaltSouthward(SimpleCommand):
     pattern = 'Qs'
 
 
+@register
 class HaltWestward(SimpleCommand):
     pattern = 'Qw'
 
@@ -489,40 +587,49 @@ class HaltWestward(SimpleCommand):
 
 # Slew Rate
 
+@register
 class SetSlewRateToCentering(SimpleCommand):
     pattern = 'RC'
 
 
+@register
 class SetSlewRateToGuiding(SimpleCommand):
     pattern = 'RG'
 
 
+@register
 class SetSlewRateToFinding(SimpleCommand):
     pattern = 'RM'
 
 
+@register
 class SetSlewRateToMax(SimpleCommand):
     pattern = 'RS'
 
 
+@register
 class SetRightAscentionSlewRate(SimpleNumericCommand):
     default_type = float
     pattern = re.compile(r'^RA(?P<value>\d\d\.\d)$')
 
 
+@register
 class SetAzimuthSlewRate(SetRightAscentionSlewRate):
     pass
 
 
+@register
 class SetDeclinationSlewRate(SimpleNumericCommand):
     default_type = float
     pattern = re.compile(r'^Re(?P<value>\d\d\.\d)$')
 
 
+@register
 class SetAltitudeSlewRate(SetDeclinationSlewRate):
     pass
 
 
+@register
 class SetGuideRate(SimpleNumericCommand):
     default_type = float
     pattern = re.compile(r'^Rg(?P<value>\d\d\.\d)$')
@@ -532,26 +639,32 @@ class SetGuideRate(SimpleNumericCommand):
 
 # Tracking
 
+@register
 class IncrementManualRate(SimpleCommand):
     pattern = 'T+'
 
 
+@register
 class DecrementManualRate(SimpleCommand):
     pattern = 'T-'
 
 
+@register
 class SetLunarTracking(SimpleCommand):
     pattern = 'TL'
 
 
+@register
 class SelectCustomTrackingRate(SimpleCommand):
     pattern = 'TM'
 
 
+@register
 class SelectSiderealTrackingRate(SimpleCommand):
     pattern = 'TQ'
 
 
+@register
 class SelectSolarTrackingRate(SimpleCommand):
     pattern = 'TS'
 
