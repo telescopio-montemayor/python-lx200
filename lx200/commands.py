@@ -36,6 +36,18 @@ class BaseCommand:
         raise NotImplementedError
 
 
+class UnknownCommand(BaseCommand):
+    @classmethod
+    def from_data(cls, data=None):
+        instance = cls(value=data)
+        return instance
+
+    # XXX FIXME: later test that this is really unknown?
+    @classmethod
+    def can_be(cls, data=None):
+        return True
+
+
 class SimpleCommand(BaseCommand):
     pattern = None
 
