@@ -357,10 +357,9 @@ class SeekHomePosition(SimpleCommand):
     pattern = 'hF'
 
 
-# XXX FIXME: probably better to implement a more flexible interface
 class BypassDSTEntry(SimpleNumericCommand):
     # YYMMDDHHMMSS
-    pattern = re.compile(r'^hI(\d{12})$')
+    pattern = re.compile(r'^hI(?P<year>\d{2})(?P<month>\d{2})(?P<day>\d{2})(?P<hours>\d{2})(?P<minutes>\d{2})(?P<seconds>\d{2})$')
 
 
 class Sleep(SimpleCommand):
@@ -499,7 +498,8 @@ class SetSlewRateToMax(SimpleCommand):
 
 
 class SetRightAscentionSlewRate(SimpleNumericCommand):
-    pattern = re.compile(r'^RA(\d\d\.\d)$')
+    default_type = float
+    pattern = re.compile(r'^RA(?P<value>\d\d\.\d)$')
 
 
 class SetAzimuthSlewRate(SetRightAscentionSlewRate):
@@ -507,7 +507,8 @@ class SetAzimuthSlewRate(SetRightAscentionSlewRate):
 
 
 class SetDeclinationSlewRate(SimpleNumericCommand):
-    pattern = re.compile(r'^RE(\d\d\.\d)$')
+    default_type = float
+    pattern = re.compile(r'^Re(?P<value>\d\d\.\d)$')
 
 
 class SetAltitudeSlewRate(SetDeclinationSlewRate):
@@ -515,7 +516,8 @@ class SetAltitudeSlewRate(SetDeclinationSlewRate):
 
 
 class SetGuideRate(SimpleNumericCommand):
-    pattern = re.compile(r'^Rg(\d\d\.\d)$')
+    default_type = float
+    pattern = re.compile(r'^Rg(?P<value>\d\d\.\d)$')
 
 
 # XXX TODO: Telescope Set Commands
