@@ -3,8 +3,6 @@
 import re
 import attr
 
-COMMAND_START = ':'
-COMMAND_END = '#'
 
 ALL_COMMANDS = []
 
