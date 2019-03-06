@@ -32,9 +32,10 @@ def get_unmapped_commands():
 class BaseResponse:
     value = attr.ib(default='')
     command = attr.ib(default=None)
+    suffix = attr.ib(default='')
 
     def __str__(self):
-        return '{}\n'.format(self.format_value(self.value))
+        return '{}{}\n'.format(self.format_value(self.value), self.suffix)
 
     def format_value(self, value):
         return str(value)
