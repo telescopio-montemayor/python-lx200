@@ -644,7 +644,271 @@ class SetGuideRate(SimpleNumericCommand):
     pattern = re.compile(r'^Rg(?P<value>\d\d\.\d)$')
 
 
-# XXX TODO: Telescope Set Commands
+# Set Commands
+
+@register
+@attr.s
+class SetTargetAltitude(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^Sas(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+
+
+@register
+class SetBrighterLimit(SimpleNumericCommand):
+    default_type = float
+    pattern = re.compile(r'^Sbs(?P<value>\d\d\.\d)$')
+
+
+@register
+class SetBaudRate(SimpleNumericCommand):
+    pattern = re.compile(r'^SB(?P<value>\d)$')
+
+
+@register
+class SetHandboxDate(SimpleNumericCommand):
+    month = attr.ib(default=None)
+    day = attr.ib(default=None)
+    year = attr.ib(default=None)
+    pattern = re.compile(r'^SC(?P<month>\d\d)/(?P<day>\d\d)/(?P<year>\d\d)$')
+
+
+@register
+@attr.s
+class SetTargetDeclination(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^Sds(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+
+
+@register
+@attr.s
+class SetTargetSelenographicLatitude(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^SEs(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+
+
+@register
+@attr.s
+class SetTargetSelenographicLongitude(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^Ses(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+
+
+@register
+class SetFaintMagnitude(SimpleNumericCommand):
+    default_type = float
+    pattern = re.compile(r'^Sfs(?P<value>\d\d\.\d)$')
+
+
+@register
+class SetFieldDiameter(SimpleNumericCommand):
+    pattern = re.compile(r'^SF(?P<value>\d{3})$')
+
+
+@register
+@attr.s
+class SetSiteLongitude(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    pattern = re.compile(r'^Sg(?P<degrees>\d{3})\*(?P<minutes>\d\d)$')
+
+
+@register
+class SetUTFOffset(SimpleNumericCommand):
+    default_type = float
+    pattern = re.compile(r'^SGs(?P<value>\d\d\.\d)$')
+
+
+@register
+class SetDSTEnabled(SimpleNumericCommand):
+    pattern = re.compile(r'^SH(?P<value>\d)$')
+
+
+@register
+class SetMaximumElevation(SimpleNumericCommand):
+    pattern = re.compile(r'^Sh(?P<value>\d\d)$')
+
+
+# XXX:
+# These two appear like that in the 2010 manual but seem to be transposed
+# (smallest -> Sl , largest -> Ss)
+@register
+class SetSmallestObjectSize(SimpleNumericCommand):
+    pattern = re.compile(r'^Sl(\d{3})$')
+
+
+@register
+class SetLargestObjectSize(SimpleNumericCommand):
+    pattern = re.compile(r'^Ss(\d{3})$')
+
+
+@register
+@attr.s
+class SetLocalTime(SimpleNumericCommand):
+    hours = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^SL(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
+
+
+@register
+class EnableFlexureCorrection(SimpleCommand):
+    pattern = 'Sm+'
+
+
+@register
+class DisableFlexureCorrection(SimpleCommand):
+    pattern = 'Sm-'
+
+
+@register
+class SetSite1Name(SimpleNumericCommand):
+    default_type = str
+    pattern = re.compile(r'^SM([\w\s]{1,15})')
+
+
+@register
+class SetSite2Name(SimpleNumericCommand):
+    default_type = str
+    pattern = re.compile(r'^SN([\w\s]{1,15})')
+
+
+@register
+class SetSite3Name(SimpleNumericCommand):
+    default_type = str
+    pattern = re.compile(r'^SO([\w\s]{1,15})')
+
+
+@register
+class SetSite4Name(SimpleNumericCommand):
+    default_type = str
+    pattern = re.compile(r'^SP([\w\s]{1,15})')
+
+
+@register
+class SetLowestElevation(SimpleNumericCommand):
+    pattern = re.compile(r'^So(\d\d)\*')
+
+
+@register
+class SetBacklashValues(SimpleNumericCommand):
+    pattern = re.compile(r'^SpB(\d\d)$')
+
+
+@register
+class SetHomeData(SimpleNumericCommand):
+    pattern = re.compile(r'^SpH(\d\d)')
+
+
+@register
+class SetSensorOffsets(SimpleNumericCommand):
+    pattern = re.compile(r'^SpS(\d\d\d)')
+
+
+@register
+class StepQualityLimit(SimpleCommand):
+    pattern = 'Sq'
+
+
+@register
+@attr.s
+class SetTargetRightAscencion(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    type_map = {
+        'minutes': float
+    }
+    pattern = re.compile(r'^Sr(?P<degrees>\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
+
+
+@register
+@attr.s
+class SetLocalSiderealTime(SimpleNumericCommand):
+    hours = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    seconds = attr.ib(default=None)
+    pattern = re.compile(r'^SS(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
+
+
+@register
+@attr.s
+class SetSiteLatitude(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    pattern = re.compile(r'^Sts(?P<degrees>\d{2})\*(?P<minutes>\d\d)$')
+
+
+@register
+class SetTrackingRate(SimpleNumericCommand):
+    pattern = re.compile(r'^ST(\d{4}\.\d{6})')
+
+
+@register
+class IncrementManualRate(SimpleCommand):
+    pattern = 'ST+'
+
+
+@register
+class DecrementManualRate(SimpleCommand):
+    pattern = 'ST-'
+
+
+@register
+class EnableAltitudePEC(SimpleCommand):
+    pattern = 'STA+'
+
+
+@register
+class DisableAltitudePEC(SimpleCommand):
+    pattern = 'STA-'
+
+
+@register
+class EnableRightAscencionPEC(SimpleCommand):
+    pattern = 'STZ+'
+
+
+@register
+class EnableAzimuthPEC(EnableRightAscencionPEC):
+    pass
+
+
+@register
+class DisableRightAscencionPEC(SimpleCommand):
+    pattern = 'STZ-'
+
+
+@register
+class DisableAzimuthPEC(DisableRightAscencionPEC):
+    pass
+
+
+@register
+class SetSlewRate(SimpleNumericCommand):
+    pattern = re.compile(r'^Sw(\d)$')
+
+
+# XXX FIXME: there seems to be a parameter missing in the manual
+@register
+class SetObjectSelectionString(SimpleCommand):
+    pattern = 'SyGPDCO'
+
+
+@register
+@attr.s
+class SetTargetAzimuth(SimpleNumericCommand):
+    degrees = attr.ib(default=None)
+    minutes = attr.ib(default=None)
+    pattern = re.compile(r'^Sz(?P<degrees>\d{3})\*(?P<minutes>\d{2})$')
+
 
 # Tracking
 
