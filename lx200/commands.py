@@ -167,12 +167,12 @@ class DecreaseReticleBrightness(SimpleCommand):
 
 
 @register
-class SetReticleFlashRate(SimpleCommand):
+class SetReticleFlashRate(SimpleNumericCommand):
     pattern = re.compile(r'^\$B(\d)$')
 
 
 @register
-class SetReticleFlashDutyCycle(SimpleCommand):
+class SetReticleFlashDutyCycle(SimpleNumericCommand):
     pattern = re.compile(r'^\$BD(\d{1,2})$')
 
 
