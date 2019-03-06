@@ -43,6 +43,7 @@ class BaseResponse:
 
 @attr.s
 class DMSResponse(BaseResponse):
+    suffix = attr.ib(default='#')
     high_precision = attr.ib(default=True)
     degrees = attr.ib(default=0)
     degrees_separator = attr.ib(default='*')
@@ -53,9 +54,9 @@ class DMSResponse(BaseResponse):
     def format_value(self, value):
         out = '{}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
         if self.high_precision:
-            out += '{}{}'.format(self.minutes_separator, self.minutes)
+            out += '{}{:=02.0f}'.format(self.minutes_separator, self.seconds)
 
-        return out
+        return out + self.suffix
 
 
 @register
