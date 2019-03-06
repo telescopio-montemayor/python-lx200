@@ -40,6 +40,23 @@ class BaseResponse:
         return str(value)
 
 
+@attr.s
+class DMSResponse(BaseResponse):
+    high_precision = attr.ib(default=True)
+    degrees = attr.ib(default=0)
+    degrees_separator = attr.ib(default='*')
+    minutes = attr.ib(default=0)
+    minutes_separator = attr.ib(default='\'')
+    seconds = attr.ib(default=0)
+
+    def format_value(self, value):
+        out = '{}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
+        if self.high_precision:
+            out += '{}{}'.format(self.minutes_separator, self.minutes)
+
+        return out
+
+
 @register
 @map_response(c.EOT, c.LandAlignment, c.PolarAlignment, c.AltAzAlignment, c.SetAltitudeAntiBacklash, c.SetDeclinationAntiBacklash)
 @map_response(c.SetAzimuthAntiBacklash, c.SetRightAscentionAntiBacklash, c.IncreaseReticleBrightness, c.DecreaseReticleBrightness)
