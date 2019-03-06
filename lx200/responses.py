@@ -60,6 +60,28 @@ class DMSResponse(BaseResponse):
 
 
 @register
+@attr.s
+class HMSResponse(BaseResponse):
+    suffix = attr.ib(default='#')
+    high_precision = attr.ib(default=True)
+    hours = attr.ib(default=0)
+    hours_separator = attr.ib(default=':')
+    minutes = attr.ib(default=0)
+    minutes_separator = attr.ib(default=':')
+    seconds = attr.ib(default=0)
+
+    def format_value(self, value):
+        out = '{}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
+        if self.high_precision:
+            out = '{}{}{}{}{:=02.0f}'.format(self.degrees, self.degrees_separator, self.minutes, self.minutes_separator, self.seconds)
+        else:
+            minutes_frac = self.minutes + self.seconds/60.0
+            out = '{}{}{:=04.1f}'.format(self.degrees, self.degrees_separator, minutes_frac)
+
+        return out + self.suffix
+
+
+@register
 @map_response(c.EOT, c.LandAlignment, c.PolarAlignment, c.AltAzAlignment, c.SetAltitudeAntiBacklash, c.SetDeclinationAntiBacklash)
 @map_response(c.SetAzimuthAntiBacklash, c.SetRightAscentionAntiBacklash, c.IncreaseReticleBrightness, c.DecreaseReticleBrightness)
 @map_response(c.SetReticleFlashRate, c.SetReticleFlashDutyCycle, c.SyncSelenographic)
