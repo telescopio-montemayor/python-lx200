@@ -95,6 +95,21 @@ class SimpleNumericCommand(SimpleCommand):
         return self
 
 
+class SignedDMSCommand(SimpleNumericCommand):
+
+    def parse(self, matches, data):
+        super().parse(matches, data)
+        if self.degrees < 0:
+            self.minutes = -1 * self.minutes
+            try:
+                self.seconds = -1 * self.seconds
+            except:
+                # We may not have seconds in some subclasses
+                pass
+
+        return self
+
+
 # These two are here for completeness only, as they do not use the start and
 # end delimiters shared by the rest of the command set.
 @register
