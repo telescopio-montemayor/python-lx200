@@ -663,17 +663,17 @@ class SetGuideRate(SimpleNumericCommand):
 
 @register
 @attr.s
-class SetTargetAltitude(SimpleNumericCommand):
+class SetTargetAltitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Sas(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^Sa(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
 class SetBrighterLimit(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Sbs(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^Sb(?P<value>[-+ ]?\d\d\.\d)$')
 
 
 @register
@@ -691,35 +691,35 @@ class SetHandboxDate(SimpleNumericCommand):
 
 @register
 @attr.s
-class SetTargetDeclination(SimpleNumericCommand):
+class SetTargetDeclination(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Sds(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^Sd(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
 @attr.s
-class SetTargetSelenographicLatitude(SimpleNumericCommand):
+class SetTargetSelenographicLatitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^SEs(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^SE(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
 @attr.s
-class SetTargetSelenographicLongitude(SimpleNumericCommand):
+class SetTargetSelenographicLongitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Ses(?P<degrees>\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^Se(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
 class SetFaintMagnitude(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Sfs(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^Sf(?P<value>[-+ ]?\d\d\.\d)$')
 
 
 @register
@@ -738,7 +738,7 @@ class SetSiteLongitude(SimpleNumericCommand):
 @register
 class SetUTFOffset(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^SGs(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^SG(?P<value>[-+ ]?\d\d\.\d)$')
 
 
 @register
@@ -855,10 +855,10 @@ class SetLocalSiderealTime(SimpleNumericCommand):
 
 @register
 @attr.s
-class SetSiteLatitude(SimpleNumericCommand):
+class SetSiteLatitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^Sts(?P<degrees>\d{2})\*(?P<minutes>\d\d)$')
+    pattern = re.compile(r'^St(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d\d)$')
 
 
 @register
