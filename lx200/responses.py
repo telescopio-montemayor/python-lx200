@@ -41,6 +41,9 @@ class BaseResponse:
         return str(value)
 
 
+@register
+@map_response(c.GetAltitude, c.GetDeclination, c.GetSelectedObjectDeclination, c.GetSelectedTargetDeclination)
+@map_response(c.GetDistanceToMeridian, c.GetAzimuth)
 @attr.s
 class DMSResponse(BaseResponse):
     suffix = attr.ib(default='#')
@@ -60,6 +63,8 @@ class DMSResponse(BaseResponse):
 
 
 @register
+@map_response(c.GetRightAscencion, c.GetSelectedTargetRightAscencion, c.GetSelectedObjectRightAscencion)
+@map_response(c.GetSiderealTime, c.GetFirmwareTime, )
 @attr.s
 class HMSResponse(BaseResponse):
     suffix = attr.ib(default='#')
