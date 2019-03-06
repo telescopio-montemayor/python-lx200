@@ -6,7 +6,6 @@ import attr
 COMMAND_START = ':'
 COMMAND_END = '#'
 
-
 ALL_COMMANDS = []
 
 
@@ -16,7 +15,7 @@ def register(command):
 
 
 def is_command(data, command):
-    return command.can_be(data) is not None
+    return command.can_be(data) not in (None, False)
 
 
 @attr.s
