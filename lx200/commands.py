@@ -867,16 +867,6 @@ class SetTrackingRate(SimpleNumericCommand):
 
 
 @register
-class IncrementManualRate(SimpleCommand):
-    pattern = 'ST+'
-
-
-@register
-class DecrementManualRate(SimpleCommand):
-    pattern = 'ST-'
-
-
-@register
 class EnableAltitudePEC(SimpleCommand):
     pattern = 'STA+'
 
@@ -927,14 +917,15 @@ class SetTargetAzimuth(SimpleNumericCommand):
 
 # Tracking
 
+# These two are also defined in the 'Set' group but do the same thing, so we lump them in a single command.
 @register
 class IncrementManualRate(SimpleCommand):
-    pattern = 'T+'
+    pattern = re.compile('(^ST\+$)|(^T\+$)')
 
 
 @register
 class DecrementManualRate(SimpleCommand):
-    pattern = 'T-'
+    pattern = re.compile('(^ST\-$)|(^T\-$)')
 
 
 @register
