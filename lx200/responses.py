@@ -90,6 +90,16 @@ class HMSResponse(BaseResponse):
 @map_response(c.EOT, c.LandAlignment, c.PolarAlignment, c.AltAzAlignment, c.SetAltitudeAntiBacklash, c.SetDeclinationAntiBacklash)
 @map_response(c.SetAzimuthAntiBacklash, c.SetRightAscentionAntiBacklash, c.IncreaseReticleBrightness, c.DecreaseReticleBrightness)
 @map_response(c.SetReticleFlashRate, c.SetReticleFlashDutyCycle, c.SyncSelenographic)
+@map_response(c.CalibrateHomePosition, c.SeekHomePosition, c.Sleep, c.Park, c.SetParkPosition, c.WakeUp)
+@map_response(c.ToggleTimeFormat, c.Initialize)
+@map_response(c.GuideEast, c.GuideNorth, c.GuideWest, c.GuideSouth, c.MoveEast, c.MoveNorth, c.MoveWest, c.MoveSouth)
+@map_response(c.HaltAll, c.HaltEastward, c.HaltNorthwawrd, c.HaltWestward, c.HaltSouthward)
+@map_response(c.SetSlewRateToCentering, c.SetSlewRateToFinding, c.SetSlewRateToGuiding, c.SetSlewRateToMax)
+@map_response(c.SetRightAscentionSlewRate, c.SetDeclinationSlewRate, c.SetAltitudeSlewRate, c.SetAzimuthSlewRate, c.SetGuideRate)
+@map_response(c.EnableFlexureCorrection, c.DisableFlexureCorrection, c.SetDSTEnabled, c.StepQualityLimit, c.IncrementManualRate)
+@map_response(c.DecrementManualRate, c.EnableAltitudePEC, c.EnableAzimuthPEC, c.EnableRightAscencionPEC, c.DisableAltitudePEC)
+@map_response(c.DisableAzimuthPEC, c.DisableRightAscencionPEC)
+@map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
 class EmptyResponse(BaseResponse):
     pass
 
