@@ -686,7 +686,7 @@ class SetHandboxDate(SimpleNumericCommand):
     month = attr.ib(default=None)
     day = attr.ib(default=None)
     year = attr.ib(default=None)
-    pattern = re.compile(r'^SC(?P<month>\d\d)/(?P<day>\d\d)/(?P<year>\d\d)$')
+    pattern = re.compile(r'^SC(?P<month> ?\d\d)/(?P<day>\d\d)/(?P<year>\d\d)$')
 
 
 @register
@@ -695,7 +695,7 @@ class SetTargetDeclination(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Sd(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sd(?P<degrees> ?[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
@@ -732,13 +732,13 @@ class SetFieldDiameter(SimpleNumericCommand):
 class SetSiteLongitude(SimpleNumericCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^Sg(?P<degrees>\d{3})\*(?P<minutes>\d\d)$')
+    pattern = re.compile(r'^Sg(?P<degrees> ?\d{3})[\*:](?P<minutes>\d\d)$')
 
 
 @register
 class SetUTFOffset(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^SG(?P<value>[-+ ]?\d\d\.\d)$')
+    pattern = re.compile(r'^SG(?P<value> ?[-+ ]?\d\d\.?\d?)$')
 
 
 @register
@@ -770,7 +770,7 @@ class SetLocalTime(SimpleNumericCommand):
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^SL(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^SL(?P<hours> ?\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
 
 
 @register
@@ -841,7 +841,7 @@ class SetTargetRightAscencion(SimpleNumericCommand):
     type_map = {
         'minutes': float
     }
-    pattern = re.compile(r'^Sr(?P<degrees>\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sr(?P<degrees> ?\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
 
 
 @register
@@ -858,7 +858,7 @@ class SetLocalSiderealTime(SimpleNumericCommand):
 class SetSiteLatitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^St(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d\d)$')
+    pattern = re.compile(r'^St(?P<degrees> ?[-+ ]?\d{2})[\*:](?P<minutes>\d\d):(?P<seconds>\d\d)$')
 
 
 @register
