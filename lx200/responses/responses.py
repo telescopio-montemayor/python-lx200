@@ -94,10 +94,10 @@ class HMSResponse(BaseResponse):
 
     def format_value(self, value):
         if self.high_precision:
-            out = '{:=+03d}{}{}{}{:=02.0f}'.format(self.degrees, self.degrees_separator, self.minutes, self.minutes_separator, self.seconds)
+            out = '{:=+03d}{}{}{}{:=02.0f}'.format(self.hours, self.hours_separator, self.minutes, self.minutes_separator, self.seconds)
         else:
             minutes_frac = self.minutes + self.seconds/60.0
-            out = '{:=+03d}{}{:=04.1f}'.format(self.degrees, self.degrees_separator, minutes_frac)
+            out = '{:=+03d}{}{:=04.1f}'.format(self.hours, self.hours_separator, minutes_frac)
 
         return out + self.suffix
 
@@ -272,7 +272,9 @@ class GetFirmwareNumber(BaseResponse):
 @register
 @map_response(c.GetBrowseBrighterMagnitudeLimit, c.GetBrowseFaintMagnitudeLimit)
 @map_response(c.GetUTCOffsetTime)
+@attr.s
 class SignedFloatResponse(BaseResponse):
+    value = attr.ib(default=0)
 
     def format_value(self, value):
             out = '{:=+05.1f}'.format(value)
@@ -421,7 +423,10 @@ class SetBrighterLimit(BooleanResponse):
 
 @register
 @map_response(c.GetHighLimit, c.GetLowerLimit)
+@attr.s
 class GetHighLimit(BaseResponse):
+    value = attr.ib(default=0)
+
     def format_value(self, value):
         return '{:=+03d}*'.format(int(value))
 
