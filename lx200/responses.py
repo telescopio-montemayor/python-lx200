@@ -54,7 +54,7 @@ class DMSResponse(BaseResponse):
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
-        out = '{}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
+        out = '{:=+03d}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
         if self.high_precision:
             out += '{}{:=02.0f}'.format(self.minutes_separator, self.seconds)
 
@@ -74,12 +74,11 @@ class HMSResponse(BaseResponse):
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
-        out = '{}{}{}'.format(self.degrees, self.degrees_separator, self.minutes)
         if self.high_precision:
-            out = '{}{}{}{}{:=02.0f}'.format(self.degrees, self.degrees_separator, self.minutes, self.minutes_separator, self.seconds)
+            out = '{:=+03d}{}{}{}{:=02.0f}'.format(self.degrees, self.degrees_separator, self.minutes, self.minutes_separator, self.seconds)
         else:
             minutes_frac = self.minutes + self.seconds/60.0
-            out = '{}{}{:=04.1f}'.format(self.degrees, self.degrees_separator, minutes_frac)
+            out = '{:=+03d}{}{:=04.1f}'.format(self.degrees, self.degrees_separator, minutes_frac)
 
         return out + self.suffix
 
