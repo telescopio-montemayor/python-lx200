@@ -251,3 +251,37 @@ class GetDeepskySearchString(BaseResponse):
     - O Open Clusters
     """
     value = attr.ib(default='gpdco')
+
+
+@register
+@map_response(c.GetAlignmentStatus)
+@attr.s
+class GetAlignmentStatus(BaseResponse):
+    mount = attr.ib(default='P')
+    is_tracking = attr.ib(default=False)
+    alignment = attr.ib(default=0)
+
+    MOUNT_ALTAZ = 'A'
+    MOUNT_EQUATORIAL = 'P'
+    MOUNT_GERMAN = 'G'
+
+    NEEDS_ALIGNMENT = 0
+    ALIGNED_1_STAR = 1
+    ALIGNED_2_STAR = 2
+    ALIGNED_3_STAR = 3
+
+    def format_value(self, value):
+        if self.is_tracking:
+            tracking = 'T'
+        else:
+            tracking = 'N'
+
+        out = '{}{}{}'.format(self.mount, tracking, self.alignment)
+        return out
+
+
+@register
+@map_response(c.GetProductName)
+@attr.s
+class GetProductName(BaseResponse):
+    value = attr.ib(default='python-lx200 implementation')
