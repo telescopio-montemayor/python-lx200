@@ -4,10 +4,20 @@ from enum import Enum
 import attr
 
 from lx200 import commands as c
+from . import defaults
 
 
 ALL_RESPONSES = []
 COMMAND_RESPONSE_MAP = {}
+
+
+def for_command(command):
+    response = COMMAND_RESPONSE_MAP.get(command, None)
+    if not response:
+        raise KeyError('Response not found for command: {}'.format(command))
+
+    default_data = defaults.for_command(command)
+    return response(command=command, **default_data)
 
 
 def register(response):
