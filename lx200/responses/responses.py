@@ -34,6 +34,19 @@ def get_unmapped_commands():
     return [cmd for cmd in c.ALL_COMMANDS if cmd not in COMMAND_RESPONSE_MAP]
 
 
+def get_responses_with_bad_defaults():
+    out = []
+    for command in c.ALL_COMMANDS:
+        response = COMMAND_RESPONSE_MAP.get(command, None)
+        if response:
+            try:
+                str(response())
+            except Exception as e:
+                out.append((command, e))
+
+    return out
+
+
 @attr.s
 class BaseResponse:
     value = attr.ib(default='')
@@ -457,3 +470,20 @@ class QueryHomeStatus(BaseResponse):
     FOUND = 1
     IN_PROGRESS = 2
     FAILED = 0
+
+
+if __name__ == '__main__':
+    import sys
+
+    unmapped = get_unmapped_commands()
+    if unmapped:
+        print('Unmapped commands:')
+        print('\n'.join(repr(item) for item in unmapped))
+
+    bad_defaults = get_responses_with_bad_defaults()
+    if bad_defaults:
+        print('Bad defaults:')
+        print('\n'.join(repr(item) for item in bad_defaults))
+
+    if unmapped or bad_defaults:
+        sys.exit(1)
