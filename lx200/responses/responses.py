@@ -3,7 +3,7 @@
 from enum import Enum
 import attr
 
-from . import commands as c
+from lx200 import commands as c
 
 
 ALL_RESPONSES = []
