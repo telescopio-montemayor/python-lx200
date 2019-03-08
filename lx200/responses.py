@@ -155,9 +155,6 @@ class DistanceBars(BaseResponse):
 class GetAlignmentMenuEntry(BaseResponse):
     value = attr.ib(default='The Menu Entry (legacy command)')
 
-    def format_value(self, value):
-        return '{}'.format(value)
-
 
 @register
 @map_response(c.GetSite1Name, c.GetSite2Name, c.GetSite3Name, c.GetSite4Name)
