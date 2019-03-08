@@ -88,7 +88,7 @@ class HMSResponse(BaseResponse):
 @map_response(c.SetAzimuthAntiBacklash, c.SetRightAscentionAntiBacklash, c.IncreaseReticleBrightness, c.DecreaseReticleBrightness)
 @map_response(c.SetReticleFlashRate, c.SetReticleFlashDutyCycle, c.SyncSelenographic)
 @map_response(c.CalibrateHomePosition, c.SeekHomePosition, c.Sleep, c.Park, c.SetParkPosition, c.WakeUp)
-@map_response(c.ToggleTimeFormat, c.Initialize)
+@map_response(c.ToggleTimeFormat, c.Initialize, c.PrecisionPositionToggle)
 @map_response(c.GuideEast, c.GuideNorth, c.GuideWest, c.GuideSouth, c.MoveEast, c.MoveNorth, c.MoveWest, c.MoveSouth)
 @map_response(c.HaltAll, c.HaltEastward, c.HaltNorthwawrd, c.HaltWestward, c.HaltSouthward)
 @map_response(c.SetSlewRateToCentering, c.SetSlewRateToFinding, c.SetSlewRateToGuiding, c.SetSlewRateToMax)
@@ -104,6 +104,13 @@ class EmptyResponse(BaseResponse):
 # XXX FIXME: some parts of the documentation use a '#' as suffix for these responses
 @register
 @map_response(c.AutomaticAlignment, c.GetDailySavingsTimeSettings)
+@map_response(c.SetTargetAltitude, c.SetTargetDeclination, c.SetTargetRightAscencion, c.SetTargetAzimuth)
+@map_response(c.SetTargetSelenographicLatitude, c.SetTargetSelenographicLongitude)
+@map_response(c.SetFaintMagnitude, c.SetFieldDiameter, c.SetSiteLongitude, c.SetSiteLatitude, c.SetSiteLongitude)
+@map_response(c.SetUTFOffset, c.SetDSTEnabled, c.SetMaximumElevation, c.SetSmallestObjectSize, c.SetLargestObjectSize)
+@map_response(c.SetLocalTime, c.SetLocalSiderealTime, c.BypassDSTEntry)
+@map_response(c.SetSite1Name, c.SetSite2Name, c.SetSite3Name, c.SetSite4Name, c.SetObjectSelectionString)
+@map_response(c.SetLowestElevation, c.SetBacklashValues, c.SetHomeData, c.SetSensorOffsets, c.SetSlewRate)
 @attr.s
 class BooleanResponse(BaseResponse):
     suffix = ''
@@ -115,6 +122,26 @@ class BooleanResponse(BaseResponse):
             return self.output_true
         else:
             return self.output_false
+
+
+@register
+@map_response(c.SetTrackingRate)
+class SetTrackingRate(BooleanResponse):
+    output_true = '2'
+
+
+@register
+@map_response(c.SetHandboxDate)
+class SetHandboxDate(BooleanResponse):
+    output_true = '1Updating  Planetary Data#                                           '
+    output_false = '0'
+
+
+@register
+@map_response(c.SlewToTargetAltAz)
+class SlewToTargetAltAz(BooleanResponse):
+    output_true = '0'
+    output_false = '1'
 
 
 @register
@@ -288,3 +315,42 @@ class GetAlignmentStatus(BaseResponse):
 @attr.s
 class GetProductName(BaseResponse):
     value = attr.ib(default='python-lx200 implementation')
+
+
+@register
+@map_response(c.HighPrecisionToggle)
+class HighPrecisionToggle(BooleanResponse):
+    suffix = '#'
+    output_true = attr.ib(default='HIGH PRECISION')
+    output_false = attr.ib(default='LOW PRECISION')
+    HIGH_PRECISION = True
+    LOW_PRECISION = False
+
+
+@register
+@map_response(c.SlewToTarget, c.SlewToTargetObject)
+@attr.s
+class SlewToTarget(BaseResponse):
+    value = attr.ib(default='0')
+
+    POSSIBLE = '0'
+    OBJECT_BELOW_HORIZON = '1 Object is below horizon'
+    OBJECT_ABOVE_HIGHER = '2 Object is above higher limit'
+
+
+@register
+@map_response(c.SetBaudRate)
+class SetBaudRate(BaseResponse):
+    def format_value(self, value):
+        return '1'
+
+
+# More than one command reverses the meaning of 1 and 0 to signal success or failure.
+# Fun.
+@register
+@map_response(c.SetBrighterLimit)
+@attr.s
+class SetBrighterLimit(BooleanResponse):
+    value = attr.ib(default=True)
+    output_true = '0'
+    output_false = '1'
