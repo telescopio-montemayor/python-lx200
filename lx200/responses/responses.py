@@ -12,7 +12,11 @@ COMMAND_RESPONSE_MAP = {}
 
 
 def for_command(command):
-    response = COMMAND_RESPONSE_MAP.get(command, None)
+    try:
+        response = COMMAND_RESPONSE_MAP.get(command, None)
+    except TypeError:
+        response = COMMAND_RESPONSE_MAP.get(command.__class__, None)
+
     if not response:
         raise KeyError('Response not found for command: {}'.format(command))
 

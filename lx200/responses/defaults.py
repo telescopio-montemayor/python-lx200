@@ -11,7 +11,10 @@ def add_default(command, response_data):
 
 
 def for_command(command):
-    return COMMAND_DEFAULT_MAP.get(command, {})
+    try:
+        return COMMAND_DEFAULT_MAP.get(command, {})
+    except TypeError:
+        return COMMAND_DEFAULT_MAP.get(command.__class__, {})
 
 
 add_default(c.GetBrowseBrighterMagnitudeLimit, {
