@@ -32,7 +32,7 @@ def get_unmapped_commands():
 class BaseResponse:
     value = attr.ib(default='')
     command = attr.ib(default=None)
-    suffix = attr.ib(default='')
+    suffix = attr.ib(default='#')
 
     def __str__(self):
         return '{}{}\n'.format(self.format_value(self.value), self.suffix)
@@ -46,7 +46,6 @@ class BaseResponse:
 @map_response(c.GetDistanceToMeridian, c.GetAzimuth)
 @attr.s
 class DMSResponse(BaseResponse):
-    suffix = attr.ib(default='#')
     high_precision = attr.ib(default=True)
     degrees = attr.ib(default=0)
     degrees_separator = attr.ib(default='*')
@@ -67,7 +66,6 @@ class DMSResponse(BaseResponse):
 @map_response(c.GetSiderealTime, c.GetFirmwareTime, )
 @attr.s
 class HMSResponse(BaseResponse):
-    suffix = attr.ib(default='#')
     high_precision = attr.ib(default=True)
     hours = attr.ib(default=0)
     hours_separator = attr.ib(default=':')
@@ -107,6 +105,8 @@ class EmptyResponse(BaseResponse):
 @register
 @map_response(c.AutomaticAlignment)
 class BooleanResponse(BaseResponse):
+    suffix = ''
+
     def format_value(self, value):
         if value:
             return '1'
@@ -118,6 +118,7 @@ class BooleanResponse(BaseResponse):
 @map_response(c.ACK)
 @attr.s
 class ACK(BaseResponse):
+    suffix = ''
     AltAz = 'A'
     Downloader = 'D'
     Land = 'L'
@@ -130,7 +131,7 @@ class ACK(BaseResponse):
 @map_response(c.SyncDatabase)
 @attr.s
 class SyncDatabase(BaseResponse):
-    value = attr.ib(default=" M31 EX GAL MAG 3.5 SZ178.0'#")
+    value = attr.ib(default=" M31 EX GAL MAG 3.5 SZ178.0'")
 
 
 @register
@@ -155,7 +156,7 @@ class GetAlignmentMenuEntry(BaseResponse):
     value = attr.ib(default='The Menu Entry (legacy command)')
 
     def format_value(self, value):
-        return '{}#'.format(value)
+        return '{}'.format(value)
 
 
 @register
@@ -167,7 +168,7 @@ class GetLocalTime12H(BaseResponse):
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
-        return '{}:{}:{}#'.format(self.hours, self.minutes, self.seconds)
+        return '{}:{}:{}'.format(self.hours, self.minutes, self.seconds)
 
 
 
