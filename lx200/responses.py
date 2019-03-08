@@ -16,9 +16,15 @@ def register(response):
 
 
 def map_response(command, *args):
+    def check_unique(cmd):
+        if cmd in COMMAND_RESPONSE_MAP:
+            raise ValueError('Command {} already mapped to a response'.format(cmd))
+
     def __inner(response):
+        check_unique(command)
         COMMAND_RESPONSE_MAP[command] = response
         for cmd in args:
+            check_unique(cmd)
             COMMAND_RESPONSE_MAP[cmd] = response
         return response
     return __inner
