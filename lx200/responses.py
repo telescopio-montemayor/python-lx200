@@ -171,4 +171,49 @@ class GetLocalTime12H(BaseResponse):
         return '{}:{}:{}'.format(self.hours, self.minutes, self.seconds)
 
 
+@register
+@map_response(c.GetBrowseBrighterMagnitudeLimit)
+class SignedFloatResponse(BaseResponse):
 
+    def format_value(self, value):
+            out = '{:=+05.1f}'.format(value)
+
+            return out
+
+
+@register
+@map_response(c.GetDate)
+@attr.s
+class DateResponse(BaseResponse):
+    year = attr.ib(default=0)
+    month = attr.ib(default=0)
+    day = attr.ib(default=0)
+
+    def format_value(self, value):
+        return '{:=02d}/{:=02d}/{:=02d}'.format(self.month, self.day, self.year % 100)
+
+
+@register
+@map_response(c.GetClockFormat)
+@attr.s
+class GetClockFormat(BaseResponse):
+    FORMAT12H = False
+    FORMAT24H = True
+    value = attr.ib(default=True)
+
+    def format_value(self, value):
+        if value:
+            return '12'
+        else:
+            return '24'
+
+
+@register
+@map_response(c.GetSelenographicLatitude, c.GetSelenographicLongitude)
+@attr.s
+class GetSelenographicCoordinate(BaseResponse):
+    degrees = attr.ib(default=99)
+    minutes = attr.ib(default=99)
+
+    def format_value(self, value):
+        return '{:+d}*{:d}'.format(self.degrees, self.minutes)
