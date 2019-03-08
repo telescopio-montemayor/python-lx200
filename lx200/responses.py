@@ -101,8 +101,9 @@ class EmptyResponse(BaseResponse):
     pass
 
 
+# XXX FIXME: some parts of the documentation use a '#' as suffix for these responses
 @register
-@map_response(c.AutomaticAlignment)
+@map_response(c.AutomaticAlignment, c.GetDailySavingsTimeSettings)
 class BooleanResponse(BaseResponse):
     suffix = ''
 
@@ -159,9 +160,17 @@ class GetAlignmentMenuEntry(BaseResponse):
 
 
 @register
-@map_response(c.GetLocalTime12H)
+@map_response(c.GetSite1Name, c.GetSite2Name, c.GetSite3Name, c.GetSite4Name)
 @attr.s
-class GetLocalTime12H(BaseResponse):
+class GetSiteName(BaseResponse):
+    value = attr.ib('The site name')
+
+
+@register
+@map_response(c.GetLocalTime12H, c.GetLocalTime24H)
+@map_response(c.GetFirmwareTime)
+@attr.s
+class GetLocalTime(BaseResponse):
     hours = attr.ib(default=0)
     minutes = attr.ib(default=0)
     seconds = attr.ib(default=0)
@@ -171,7 +180,8 @@ class GetLocalTime12H(BaseResponse):
 
 
 @register
-@map_response(c.GetBrowseBrighterMagnitudeLimit)
+@map_response(c.GetBrowseBrighterMagnitudeLimit, c.GetBrowseFaintMagnitudeLimit)
+@map_response(c.GetUTCOffsetTime)
 class SignedFloatResponse(BaseResponse):
 
     def format_value(self, value):
@@ -216,3 +226,31 @@ class GetSelenographicCoordinate(BaseResponse):
 
     def format_value(self, value):
         return '{:+d}*{:d}'.format(self.degrees, self.minutes)
+
+
+@register
+@map_response(c.GetFindFieldDiameter)
+class GetFindFieldDiameter(BaseResponse):
+    pass
+
+
+@register
+@map_response(c.GetSiteLongitude, c.GetSiteLatitude)
+class LowPrecisionDMSResponse(DMSResponse):
+    high_precision = False
+
+
+@register
+@map_response(c.GetDeepskySearchString)
+@attr.s
+class GetDeepskySearchString(BaseResponse):
+    """
+    A string indicating the class of objects returned by FIND/BROWSE.
+    A lower-case character means that class is ignored.
+    - G Galaxies
+    - P Planetary Nebulas
+    - D Diffuse Nebulas
+    - C Globular Clusters
+    - O Open Clusters
+    """
+    value = attr.ib(default='gpdco')
