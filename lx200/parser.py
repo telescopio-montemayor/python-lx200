@@ -31,11 +31,11 @@ class Parser:
         if self.state is State.IDLE:
             # These two are special
             if is_command(data, ACK):
-                self.output.append(ACK.from_data(data))
+                self.output.appendleft(ACK.from_data(data))
                 return
 
             if is_command(data, EOT):
-                self.output.append(EOT.from_data(data))
+                self.output.appendleft(EOT.from_data(data))
                 return
 
             if data == COMMAND_START:
@@ -44,7 +44,7 @@ class Parser:
 
         elif self.state is State.PARSING:
             if data == COMMAND_END:
-                self.output.append(self.parse(''.join(self.buffer)))
+                self.output.appendleft(self.parse(''.join(self.buffer)))
                 self.__reset_input_state()
             else:
                 if len(self.buffer) < self.maxlen:
