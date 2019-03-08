@@ -104,14 +104,17 @@ class EmptyResponse(BaseResponse):
 # XXX FIXME: some parts of the documentation use a '#' as suffix for these responses
 @register
 @map_response(c.AutomaticAlignment, c.GetDailySavingsTimeSettings)
+@attr.s
 class BooleanResponse(BaseResponse):
     suffix = ''
+    output_true = attr.ib(default='1')
+    output_false = attr.ib(default='0')
 
     def format_value(self, value):
         if value:
-            return '1'
+            return self.output_true
         else:
-            return '0'
+            return self.output_false
 
 
 @register
