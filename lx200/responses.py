@@ -63,7 +63,7 @@ class DMSResponse(BaseResponse):
 
 @register
 @map_response(c.GetRightAscencion, c.GetSelectedTargetRightAscencion, c.GetSelectedObjectRightAscencion)
-@map_response(c.GetSiderealTime, c.GetFirmwareTime, )
+@map_response(c.GetSiderealTime)
 @attr.s
 class HMSResponse(BaseResponse):
     high_precision = attr.ib(default=True)
@@ -128,6 +128,27 @@ class BooleanResponse(BaseResponse):
 @map_response(c.SetTrackingRate)
 class SetTrackingRate(BooleanResponse):
     output_true = '2'
+
+
+@register
+@map_response(c.GetTrackingRate)
+@attr.s
+class GetTrackingRate(BaseResponse):
+    value = attr.ib(default=60)
+
+    def format_value(self, value):
+        return '{:=04.1f}'.format(value)
+
+
+@register
+@map_response(c.GetHomeData, c.GetBacklashValues)
+@attr.s
+class GetHomeData(BaseResponse):
+    axis_1 = attr.ib(default=0)
+    axis_2 = attr.ib(default=0)
+
+    def format_value(self, value):
+        return '{} {}'.format(self.axis_1, self.axis_2)
 
 
 @register
@@ -204,6 +225,29 @@ class GetLocalTime(BaseResponse):
 
     def format_value(self, value):
         return '{}:{}:{}'.format(self.hours, self.minutes, self.seconds)
+
+
+@register
+@map_response(c.GetFirmwareDate)
+@attr.s
+class GetFirmwareDate(BaseResponse):
+    year = attr.ib(default=1999)
+    month = attr.ib(default=12)
+    day = attr.ib(default=31)
+
+    def format_value(self, value):
+        return '{} {} {}'.format(self.month, self.day, self.year)
+
+
+@register
+@map_response(c.GetFirmwareNumber)
+@attr.s
+class GetFirmwareNumber(BaseResponse):
+    major = attr.ib(default=42)
+    minor = attr.ib(default=0)
+
+    def format_value(self, value):
+        return '{}.{}'.format(self.major, self.minor)
 
 
 @register
@@ -354,3 +398,56 @@ class SetBrighterLimit(BooleanResponse):
     value = attr.ib(default=True)
     output_true = '0'
     output_false = '1'
+
+
+@register
+@map_response(c.GetHighLimit, c.GetLowerLimit)
+class GetHighLimit(BaseResponse):
+    def format_value(self, value):
+        return '{:=+03d}*'.format(int(value))
+
+
+@register
+@map_response(c.GetLargerSizeLimit, c.GetSmallerSizeLimit)
+@attr.s
+class GetLargerSizeLimit(BaseResponse):
+    value = attr.ib(default=123)
+    suffix = "'#"
+
+
+@register
+@map_response(c.GetMinimumQualityForFind)
+@attr.s
+class GetMinimumQualityForFind(BaseResponse):
+    value = attr.ib(default='GD')
+    SUPER = 'SU'
+    EXCELLENT = 'EX'
+    VERY_GOOD = 'VG'
+    GOOD = 'GD'
+    FAIR = 'FR'
+    POOR = 'PR'
+    VERY_POOR = 'VP'
+
+
+# XXX FIXME: the documented response seems wrong
+@register
+@map_response(c.GetSensorOffsets)
+@attr.s
+class GetSensorOffsets(BaseResponse):
+    az_error = attr.ib(default=0)
+    el_error = attr.ib(default=0)
+    home_offset = attr.ib(default=0)
+
+    def format_value(self, value):
+        return '{} {} {}'.format(self.az_error, self.el_error, self.home_offset)
+
+
+@register
+@map_response(c.QueryHomeStatus)
+@attr.s
+class QueryHomeStatus(BaseResponse):
+    value = attr.ib(default=1)
+
+    FOUND = 1
+    IN_PROGRESS = 2
+    FAILED = 0
