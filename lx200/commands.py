@@ -736,7 +736,7 @@ class SetSiteLongitude(SimpleNumericCommand):
 
 
 @register
-class SetUTFOffset(SimpleNumericCommand):
+class SetUTCOffset(SimpleNumericCommand):
     default_type = float
     pattern = re.compile(r'^SG(?P<value> ?[-+ ]?\d\d\.?\d?)$')
 

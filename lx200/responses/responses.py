@@ -143,7 +143,7 @@ class EmptyResponse(BaseResponse):
 @map_response(c.SetTargetAltitude, c.SetTargetDeclination, c.SetTargetRightAscencion, c.SetTargetAzimuth)
 @map_response(c.SetTargetSelenographicLatitude, c.SetTargetSelenographicLongitude)
 @map_response(c.SetFaintMagnitude, c.SetFieldDiameter, c.SetSiteLongitude, c.SetSiteLatitude)
-@map_response(c.SetUTFOffset, c.SetMaximumElevation, c.SetSmallestObjectSize, c.SetLargestObjectSize)
+@map_response(c.SetUTCOffset, c.SetMaximumElevation, c.SetSmallestObjectSize, c.SetLargestObjectSize)
 @map_response(c.SetLocalTime, c.SetLocalSiderealTime, c.BypassDSTEntry)
 @map_response(c.SetSite1Name, c.SetSite2Name, c.SetSite3Name, c.SetSite4Name, c.SetObjectSelectionString)
 @map_response(c.SetLowestElevation, c.SetBacklashValues, c.SetHomeData, c.SetSensorOffsets, c.SetSlewRate)
