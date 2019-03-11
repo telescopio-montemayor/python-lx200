@@ -348,7 +348,7 @@ class GetFindFieldDiameter(BaseResponse):
 @register
 @map_response(c.GetSiteLongitude, c.GetSiteLatitude)
 class LowPrecisionDMSResponse(DMSResponse):
-    high_precision = False
+    high_precision = attr.ib(default=False)
 
 
 @register
