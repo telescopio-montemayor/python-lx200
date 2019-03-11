@@ -85,9 +85,9 @@ class BaseResponse:
 class DMSResponse(BaseResponse):
     high_precision = attr.ib(default=True)
     degrees = attr.ib(default=0)
-    degrees_separator = attr.ib(default='*')
+    degrees_separator = attr.ib(default=':')
     minutes = attr.ib(default=0)
-    minutes_separator = attr.ib(default='\'')
+    minutes_separator = attr.ib(default=':')
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
