@@ -95,7 +95,7 @@ class DMSResponse(BaseResponse):
         if self.high_precision:
             out += '{}{:=02.0f}'.format(self.minutes_separator, self.seconds)
 
-        return out + self.suffix
+        return out
 
 
 @register
@@ -117,7 +117,7 @@ class HMSResponse(BaseResponse):
             minutes_frac = self.minutes + self.seconds/60.0
             out = '{:=+03d}{}{:=04.1f}'.format(self.hours, self.hours_separator, minutes_frac)
 
-        return out + self.suffix
+        return out
 
 
 @register
@@ -138,7 +138,6 @@ class EmptyResponse(BaseResponse):
     pass
 
 
-# XXX FIXME: some parts of the documentation use a '#' as suffix for these responses
 @register
 @map_response(c.AutomaticAlignment, c.GetDailySavingsTimeSettings)
 @map_response(c.SetTargetAltitude, c.SetTargetDeclination, c.SetTargetRightAscencion, c.SetTargetAzimuth)
@@ -150,9 +149,10 @@ class EmptyResponse(BaseResponse):
 @map_response(c.SetLowestElevation, c.SetBacklashValues, c.SetHomeData, c.SetSensorOffsets, c.SetSlewRate)
 @attr.s
 class BooleanResponse(BaseResponse):
-    suffix = ''
+    value = attr.ib(default=True)
     output_true = attr.ib(default='1')
     output_false = attr.ib(default='0')
+    suffix = attr.ib(default='')
 
     def format_value(self, value):
         if value:
@@ -206,7 +206,7 @@ class SlewToTargetAltAz(BooleanResponse):
 @map_response(c.ACK)
 @attr.s
 class ACK(BaseResponse):
-    suffix = ''
+    suffix = attr.ib(default='')
     AltAz = 'A'
     Downloader = 'D'
     Land = 'L'
@@ -403,7 +403,6 @@ class GetProductName(BaseResponse):
 @register
 @map_response(c.HighPrecisionToggle)
 class HighPrecisionToggle(BooleanResponse):
-    suffix = '#'
     output_true = attr.ib(default='HIGH PRECISION')
     output_false = attr.ib(default='LOW PRECISION')
     HIGH_PRECISION = True
@@ -454,7 +453,6 @@ class GetHighLimit(BaseResponse):
 @attr.s
 class GetLargerSizeLimit(BaseResponse):
     value = attr.ib(default=123)
-    suffix = "'#"
 
 
 @register
