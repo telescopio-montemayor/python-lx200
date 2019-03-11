@@ -323,9 +323,9 @@ class GetClockFormat(BaseResponse):
 
     def format_value(self, value):
         if value:
-            return '12'
-        else:
             return '24'
+        else:
+            return '12'
 
 
 @register
