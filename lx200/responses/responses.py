@@ -163,8 +163,9 @@ class BooleanResponse(BaseResponse):
 
 @register
 @map_response(c.SetTrackingRate)
+@attr.s
 class SetTrackingRate(BooleanResponse):
-    output_true = '2'
+    output_true = attr.ib(default='2')
 
 
 @register
@@ -190,16 +191,16 @@ class GetHomeData(BaseResponse):
 
 @register
 @map_response(c.SetHandboxDate)
+@attr.s
 class SetHandboxDate(BooleanResponse):
-    output_true = '1Updating  Planetary Data#                                           '
-    output_false = '0'
+    output_true = attr.ib(default='1Updating  Planetary Data#                                           #')
 
 
 @register
 @map_response(c.SlewToTargetAltAz)
 class SlewToTargetAltAz(BooleanResponse):
-    output_true = '0'
-    output_false = '1'
+    output_true = attr.ib(default='0')
+    output_false = attr.ib(default='1')
 
 
 @register
@@ -434,8 +435,8 @@ class SetBaudRate(BaseResponse):
 @attr.s
 class SetBrighterLimit(BooleanResponse):
     value = attr.ib(default=True)
-    output_true = '0'
-    output_false = '1'
+    output_true = attr.ib(default='0')
+    output_false = attr.ib(default='1')
 
 
 @register
