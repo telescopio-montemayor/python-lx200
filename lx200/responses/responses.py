@@ -257,9 +257,9 @@ class GetSiteName(BaseResponse):
 @map_response(c.GetFirmwareTime)
 @attr.s
 class GetLocalTime(BaseResponse):
-    hours = attr.ib(default=0)
-    minutes = attr.ib(default=0)
-    seconds = attr.ib(default=0)
+    hours = attr.ib(default=10)
+    minutes = attr.ib(default=33)
+    seconds = attr.ib(default=34)
 
     def format_value(self, value):
         return '{}:{}:{}'.format(self.hours, self.minutes, self.seconds)
@@ -305,9 +305,9 @@ class SignedFloatResponse(BaseResponse):
 @map_response(c.GetDate)
 @attr.s
 class DateResponse(BaseResponse):
-    year = attr.ib(default=0)
-    month = attr.ib(default=0)
-    day = attr.ib(default=0)
+    year = attr.ib(default=13)
+    month = attr.ib(default=12)
+    day = attr.ib(default=11)
 
     def format_value(self, value):
         return '{:=02d}/{:=02d}/{:=02d}'.format(self.month, self.day, self.year % 100)
