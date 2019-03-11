@@ -249,7 +249,7 @@ class GetAlignmentMenuEntry(BaseResponse):
 @map_response(c.GetSite1Name, c.GetSite2Name, c.GetSite3Name, c.GetSite4Name)
 @attr.s
 class GetSiteName(BaseResponse):
-    value = attr.ib('The site name')
+    value = attr.ib('TheSiteName')
 
 
 @register
