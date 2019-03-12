@@ -65,8 +65,8 @@ def get_responses_with_bad_defaults():
 class BaseResponse:
     value = attr.ib(default='')
     command = attr.ib(default=None)
-    suffix = attr.ib(default='#')
-    new_line = attr.ib(default=False)
+    suffix = attr.ib(default='#', repr=False)
+    new_line = attr.ib(default=False, repr=False)
 
     def __str__(self):
         suffix = self.suffix
@@ -83,11 +83,12 @@ class BaseResponse:
 @map_response(c.GetDistanceToMeridian, c.GetAzimuth)
 @attr.s
 class DMSResponse(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     high_precision = attr.ib(default=True)
     degrees = attr.ib(default=0)
-    degrees_separator = attr.ib(default=':')
+    degrees_separator = attr.ib(default=':', repr=False)
     minutes = attr.ib(default=0)
-    minutes_separator = attr.ib(default=':')
+    minutes_separator = attr.ib(default=':', repr=False)
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
@@ -103,11 +104,12 @@ class DMSResponse(BaseResponse):
 @map_response(c.GetSiderealTime)
 @attr.s
 class HMSResponse(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     high_precision = attr.ib(default=True)
     hours = attr.ib(default=0)
-    hours_separator = attr.ib(default=':')
+    hours_separator = attr.ib(default=':', repr=False)
     minutes = attr.ib(default=0)
-    minutes_separator = attr.ib(default=':')
+    minutes_separator = attr.ib(default=':', repr=False)
     seconds = attr.ib(default=0)
 
     def format_value(self, value):
@@ -136,7 +138,7 @@ class HMSResponse(BaseResponse):
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
 @attr.s
 class EmptyResponse(BaseResponse):
-    suffix = attr.ib(default='')
+    suffix = attr.ib(default='', repr=False)
     pass
 
 
@@ -154,7 +156,7 @@ class BooleanResponse(BaseResponse):
     value = attr.ib(default=True)
     output_true = attr.ib(default='1')
     output_false = attr.ib(default='0')
-    suffix = attr.ib(default='')
+    suffix = attr.ib(default='', repr=False)
 
     def format_value(self, value):
         if value:
@@ -184,6 +186,7 @@ class GetTrackingRate(BaseResponse):
 @map_response(c.GetHomeData, c.GetBacklashValues)
 @attr.s
 class GetHomeData(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     axis_1 = attr.ib(default=0)
     axis_2 = attr.ib(default=0)
 
@@ -210,7 +213,7 @@ class SlewToTargetAltAz(BooleanResponse):
 @map_response(c.ACK)
 @attr.s
 class ACK(BaseResponse):
-    suffix = attr.ib(default='')
+    suffix = attr.ib(default='', repr=False)
     AltAz = 'A'
     Downloader = 'D'
     Land = 'L'
@@ -260,6 +263,7 @@ class GetSiteName(BaseResponse):
 @map_response(c.GetFirmwareTime)
 @attr.s
 class GetLocalTime(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     hours = attr.ib(default=10)
     minutes = attr.ib(default=33)
     seconds = attr.ib(default=34)
@@ -272,6 +276,7 @@ class GetLocalTime(BaseResponse):
 @map_response(c.GetFirmwareDate)
 @attr.s
 class GetFirmwareDate(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     year = attr.ib(default=1999)
     month = attr.ib(default=12)
     day = attr.ib(default=31)
@@ -284,6 +289,7 @@ class GetFirmwareDate(BaseResponse):
 @map_response(c.GetFirmwareNumber)
 @attr.s
 class GetFirmwareNumber(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     major = attr.ib(default=42)
     minor = attr.ib(default=0)
 
@@ -308,6 +314,7 @@ class SignedFloatResponse(BaseResponse):
 @map_response(c.GetDate)
 @attr.s
 class DateResponse(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     year = attr.ib(default=13)
     month = attr.ib(default=12)
     day = attr.ib(default=11)
@@ -335,6 +342,7 @@ class GetClockFormat(BaseResponse):
 @map_response(c.GetSelenographicLatitude, c.GetSelenographicLongitude)
 @attr.s
 class GetSelenographicCoordinate(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=99)
     minutes = attr.ib(default=99)
 
@@ -374,6 +382,7 @@ class GetDeepskySearchString(BaseResponse):
 @map_response(c.GetAlignmentStatus)
 @attr.s
 class GetAlignmentStatus(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     mount = attr.ib(default='P')
     is_tracking = attr.ib(default=False)
     alignment = attr.ib(default=0)
@@ -417,7 +426,7 @@ class HighPrecisionToggle(BooleanResponse):
 @map_response(c.SlewToTarget, c.SlewToTargetObject)
 @attr.s
 class SlewToTarget(BaseResponse):
-    suffix = attr.ib(default='')
+    suffix = attr.ib(default='', repr=False)
     value = attr.ib(default='0')
 
     POSSIBLE = '0'
@@ -428,6 +437,7 @@ class SlewToTarget(BaseResponse):
 @register
 @map_response(c.SetBaudRate)
 class SetBaudRate(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     def format_value(self, value):
         return '1'
 
@@ -479,6 +489,7 @@ class GetMinimumQualityForFind(BaseResponse):
 @map_response(c.GetSensorOffsets)
 @attr.s
 class GetSensorOffsets(BaseResponse):
+    value = attr.ib(default=None, repr=False)
     az_error = attr.ib(default=0)
     el_error = attr.ib(default=0)
     home_offset = attr.ib(default=0)

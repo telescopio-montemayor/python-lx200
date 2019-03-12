@@ -45,7 +45,9 @@ class UnknownCommand(BaseCommand):
         return True
 
 
+@attr.s
 class SimpleCommand(BaseCommand):
+    value = attr.ib(default=None, repr=False)
     pattern = None
 
     @classmethod
@@ -95,7 +97,9 @@ class SimpleNumericCommand(SimpleCommand):
         return self
 
 
+@attr.s
 class SignedDMSCommand(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
 
     def parse(self, matches, data):
         super().parse(matches, data)
@@ -457,6 +461,7 @@ class SeekHomePosition(SimpleCommand):
 @register
 @attr.s
 class BypassDSTEntry(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     # YYMMDDHHMMSS
     year = attr.ib(default=None)
     month = attr.ib(default=None)
@@ -683,6 +688,7 @@ class SetBaudRate(SimpleNumericCommand):
 
 @register
 class SetHandboxDate(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     month = attr.ib(default=None)
     day = attr.ib(default=None)
     year = attr.ib(default=None)
@@ -730,6 +736,7 @@ class SetFieldDiameter(SimpleNumericCommand):
 @register
 @attr.s
 class SetSiteLongitude(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     pattern = re.compile(r'^Sg ?(?P<degrees>\d{3})[\*:](?P<minutes>\d\d)$')
@@ -767,6 +774,7 @@ class SetLargestObjectSize(SimpleNumericCommand):
 @register
 @attr.s
 class SetLocalTime(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -835,6 +843,7 @@ class StepQualityLimit(SimpleCommand):
 @register
 @attr.s
 class SetTargetRightAscencion(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -847,6 +856,7 @@ class SetTargetRightAscencion(SimpleNumericCommand):
 @register
 @attr.s
 class SetLocalSiderealTime(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -911,6 +921,7 @@ class SetObjectSelectionString(SimpleCommand):
 @register
 @attr.s
 class SetTargetAzimuth(SimpleNumericCommand):
+    value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     pattern = re.compile(r'^Sz ?(?P<degrees>\d{3})\*(?P<minutes>\d{2})$')
