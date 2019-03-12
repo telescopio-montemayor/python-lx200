@@ -198,6 +198,7 @@ class SetHandboxDate(BooleanResponse):
 
 @register
 @map_response(c.SlewToTargetAltAz)
+@attr.s
 class SlewToTargetAltAz(BooleanResponse):
     output_true = attr.ib(default='0')
     output_false = attr.ib(default='1')
@@ -227,15 +228,15 @@ class SyncDatabase(BaseResponse):
 @map_response(c.DistanceBars)
 @attr.s
 class DistanceBars(BaseResponse):
-    value = attr.ib(default=1)
+    """ Distance (isSlewing) """
+    value = attr.ib(default=False)
+    suffix = attr.ib(default='')
 
     def format_value(self, value):
-        value = int(value)
-        if value not in range(11):
-            raise ValueError('Value for DistanceBars not in range(0, 11)')
-
-        bars = '|' * value
-        return bars
+        if value:
+            return '\x7f#'
+        else:
+            return '#'
 
 
 @register
@@ -414,6 +415,7 @@ class HighPrecisionToggle(BooleanResponse):
 @map_response(c.SlewToTarget, c.SlewToTargetObject)
 @attr.s
 class SlewToTarget(BaseResponse):
+    suffix = attr.ib(default='')
     value = attr.ib(default='0')
 
     POSSIBLE = '0'
