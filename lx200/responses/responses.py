@@ -230,15 +230,15 @@ class SyncDatabase(BaseResponse):
 @map_response(c.DistanceBars)
 @attr.s
 class DistanceBars(BaseResponse):
-    """ Distance (isSlewing) """
-    value = attr.ib(default=False)
+    """ Distance (if not zero isSlewing will return true on INDI side) """
+    value = attr.ib(default=0)
     suffix = attr.ib(default='')
 
     def format_value(self, value):
-        if value:
-            return '\x7f#'
-        else:
-            return '#'
+        if value not in range(6):
+            raise ValueError('Value for DistanceBars {} is not in range 0..6'.format(value))
+
+        return '|' * value + '#'
 
 
 @register
