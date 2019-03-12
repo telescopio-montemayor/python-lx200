@@ -151,7 +151,7 @@ class AltAzAlignment(SimpleCommand):
 
 @register
 class SetAltitudeAntiBacklash(SimpleNumericCommand):
-    pattern = re.compile(r'^\$BA(\d{1,2})$')
+    pattern = re.compile(r'^\$BA ?(\d{1,2})$')
 
 
 @register
@@ -161,7 +161,7 @@ class SetDeclinationAntiBacklash(SetAltitudeAntiBacklash):
 
 @register
 class SetAzimuthAntiBacklash(SimpleNumericCommand):
-    pattern = re.compile(r'^\$BZ(\d{1,2})$')
+    pattern = re.compile(r'^\$BZ ?(\d{1,2})$')
 
 
 @register
@@ -183,12 +183,12 @@ class DecreaseReticleBrightness(SimpleCommand):
 
 @register
 class SetReticleFlashRate(SimpleNumericCommand):
-    pattern = re.compile(r'^\$B(\d)$')
+    pattern = re.compile(r'^\$B ?(\d)$')
 
 
 @register
 class SetReticleFlashDutyCycle(SimpleNumericCommand):
-    pattern = re.compile(r'^\$BD(\d{1,2})$')
+    pattern = re.compile(r'^\$BD ?(\d{1,2})$')
 
 
 # Sync Control
@@ -464,7 +464,7 @@ class BypassDSTEntry(SimpleNumericCommand):
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^hI(?P<year>\d{2})(?P<month>\d{2})(?P<day>\d{2})(?P<hours>\d{2})(?P<minutes>\d{2})(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^hI ?(?P<year>\d{2})(?P<month>\d{2})(?P<day>\d{2})(?P<hours>\d{2})(?P<minutes>\d{2})(?P<seconds>\d{2})$')
 
 
 @register
@@ -517,22 +517,22 @@ class SlewToTargetAltAz(SimpleCommand):
 
 @register
 class GuideNorth(SimpleNumericCommand):
-    pattern = re.compile(r'^Mgn(\d{4})$')
+    pattern = re.compile(r'^Mgn ?(\d{4})$')
 
 
 @register
 class GuideSouth(SimpleNumericCommand):
-    pattern = re.compile(r'^Mgs(\d{4})$')
+    pattern = re.compile(r'^Mgs ?(\d{4})$')
 
 
 @register
 class GuideEast(SimpleNumericCommand):
-    pattern = re.compile(r'^Mge(\d{4})$')
+    pattern = re.compile(r'^Mge ?(\d{4})$')
 
 
 @register
 class GuideWest(SimpleNumericCommand):
-    pattern = re.compile(r'^Mgw(\d{4})$')
+    pattern = re.compile(r'^Mgw ?(\d{4})$')
 
 
 @register
@@ -634,7 +634,7 @@ class SetSlewRateToMax(SimpleCommand):
 @register
 class SetRightAscentionSlewRate(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^RA(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^RA ?(?P<value>\d\d\.\d)$')
 
 
 @register
@@ -645,7 +645,7 @@ class SetAzimuthSlewRate(SetRightAscentionSlewRate):
 @register
 class SetDeclinationSlewRate(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Re(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^Re ?(?P<value>\d\d\.\d)$')
 
 
 @register
@@ -656,7 +656,7 @@ class SetAltitudeSlewRate(SetDeclinationSlewRate):
 @register
 class SetGuideRate(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Rg(?P<value>\d\d\.\d)$')
+    pattern = re.compile(r'^Rg ?(?P<value>\d\d\.\d)$')
 
 
 # Set Commands
@@ -667,18 +667,18 @@ class SetTargetAltitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Sa(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sa ?(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
 @register
 class SetBrighterLimit(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Sb(?P<value>[-+ ]?\d\d\.\d)$')
+    pattern = re.compile(r'^Sb ?(?P<value>[-+ ]?\d\d\.\d)$')
 
 
 @register
 class SetBaudRate(SimpleNumericCommand):
-    pattern = re.compile(r'^SB(?P<value>\d)$')
+    pattern = re.compile(r'^SB ?(?P<value>\d)$')
 
 
 @register
@@ -686,7 +686,7 @@ class SetHandboxDate(SimpleNumericCommand):
     month = attr.ib(default=None)
     day = attr.ib(default=None)
     year = attr.ib(default=None)
-    pattern = re.compile(r'^SC(?P<month> ?\d\d)/(?P<day>\d\d)/(?P<year>\d\d)$')
+    pattern = re.compile(r'^SC ?(?P<month>\d\d)/(?P<day>\d\d)/(?P<year>\d\d)$')
 
 
 @register
@@ -695,7 +695,7 @@ class SetTargetDeclination(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Sd(?P<degrees> ?[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sd ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
 @register
@@ -704,7 +704,7 @@ class SetTargetSelenographicLatitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^SE(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^SE ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
 @register
@@ -713,18 +713,18 @@ class SetTargetSelenographicLongitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^Se(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Se ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
 @register
 class SetFaintMagnitude(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^Sf(?P<value>[-+ ]?\d\d\.\d)$')
+    pattern = re.compile(r'^Sf ?(?P<value>[-+ ]?\d\d\.\d)$')
 
 
 @register
 class SetFieldDiameter(SimpleNumericCommand):
-    pattern = re.compile(r'^SF(?P<value>\d{3})$')
+    pattern = re.compile(r'^SF ?(?P<value>\d{3})$')
 
 
 @register
@@ -732,23 +732,23 @@ class SetFieldDiameter(SimpleNumericCommand):
 class SetSiteLongitude(SimpleNumericCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^Sg(?P<degrees> ?\d{3})[\*:](?P<minutes>\d\d)$')
+    pattern = re.compile(r'^Sg ?(?P<degrees>\d{3})[\*:](?P<minutes>\d\d)$')
 
 
 @register
 class SetUTCOffset(SimpleNumericCommand):
     default_type = float
-    pattern = re.compile(r'^SG(?P<value> ?[-+ ]?\d\d\.?\d?)$')
+    pattern = re.compile(r'^SG ?(?P<value>[-+ ]?\d\d\.?\d?)$')
 
 
 @register
 class SetDSTEnabled(SimpleNumericCommand):
-    pattern = re.compile(r'^SH(?P<value>\d)$')
+    pattern = re.compile(r'^SH ?(?P<value>\d)$')
 
 
 @register
 class SetMaximumElevation(SimpleNumericCommand):
-    pattern = re.compile(r'^Sh(?P<value>\d\d)$')
+    pattern = re.compile(r'^Sh ?(?P<value>\d\d)$')
 
 
 # XXX:
@@ -756,12 +756,12 @@ class SetMaximumElevation(SimpleNumericCommand):
 # (smallest -> Sl , largest -> Ss)
 @register
 class SetSmallestObjectSize(SimpleNumericCommand):
-    pattern = re.compile(r'^Sl(\d{3})$')
+    pattern = re.compile(r'^Sl ?(\d{3})$')
 
 
 @register
 class SetLargestObjectSize(SimpleNumericCommand):
-    pattern = re.compile(r'^Ss(\d{3})$')
+    pattern = re.compile(r'^Ss ?(\d{3})$')
 
 
 @register
@@ -770,7 +770,7 @@ class SetLocalTime(SimpleNumericCommand):
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^SL(?P<hours> ?\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^SL ?(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
 
 
 @register
@@ -786,45 +786,45 @@ class DisableFlexureCorrection(SimpleCommand):
 @register
 class SetSite1Name(SimpleNumericCommand):
     default_type = str
-    pattern = re.compile(r'^SM([\w\s]{1,15})')
+    pattern = re.compile(r'^SM ?([\w\s]{1,15})')
 
 
 @register
 class SetSite2Name(SimpleNumericCommand):
     default_type = str
-    pattern = re.compile(r'^SN([\w\s]{1,15})')
+    pattern = re.compile(r'^SN ?([\w\s]{1,15})')
 
 
 @register
 class SetSite3Name(SimpleNumericCommand):
     default_type = str
-    pattern = re.compile(r'^SO([\w\s]{1,15})')
+    pattern = re.compile(r'^SO ?([\w\s]{1,15})')
 
 
 @register
 class SetSite4Name(SimpleNumericCommand):
     default_type = str
-    pattern = re.compile(r'^SP([\w\s]{1,15})')
+    pattern = re.compile(r'^SP ?([\w\s]{1,15})')
 
 
 @register
 class SetLowestElevation(SimpleNumericCommand):
-    pattern = re.compile(r'^So(\d\d)\*')
+    pattern = re.compile(r'^So ?(\d\d)\*')
 
 
 @register
 class SetBacklashValues(SimpleNumericCommand):
-    pattern = re.compile(r'^SpB(\d\d)$')
+    pattern = re.compile(r'^SpB ?(\d\d)$')
 
 
 @register
 class SetHomeData(SimpleNumericCommand):
-    pattern = re.compile(r'^SpH(\d\d)')
+    pattern = re.compile(r'^SpH ?(\d\d)')
 
 
 @register
 class SetSensorOffsets(SimpleNumericCommand):
-    pattern = re.compile(r'^SpS(\d\d\d)')
+    pattern = re.compile(r'^SpS ?(\d\d\d)')
 
 
 @register
@@ -841,7 +841,7 @@ class SetTargetRightAscencion(SimpleNumericCommand):
     type_map = {
         'minutes': float
     }
-    pattern = re.compile(r'^Sr(?P<degrees> ?\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sr ?(?P<degrees>\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
 
 
 @register
@@ -850,7 +850,7 @@ class SetLocalSiderealTime(SimpleNumericCommand):
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
-    pattern = re.compile(r'^SS(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
+    pattern = re.compile(r'^SS ?(?P<hours>\d{2}):(?P<minutes>\d{2}):(?P<seconds>\d{2})$')
 
 
 @register
@@ -858,12 +858,13 @@ class SetLocalSiderealTime(SimpleNumericCommand):
 class SetSiteLatitude(SignedDMSCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^St(?P<degrees> ?[-+ ]?\d{2})[\*:](?P<minutes>\d\d):(?P<seconds>\d\d)$')
+    pattern = re.compile(r'^St ?(?P<degrees>[-+ ]?\d{2})[\*:](?P<minutes>\d\d):(?P<seconds>\d\d)$')
 
 
 @register
 class SetTrackingRate(SimpleNumericCommand):
-    pattern = re.compile(r'^ST(\d{4}\.\d{6})')
+    default_type = float
+    pattern = re.compile(r'^ST ?(\d{2,4}\.?\d{0,6})')
 
 
 @register
@@ -898,7 +899,7 @@ class DisableAzimuthPEC(DisableRightAscencionPEC):
 
 @register
 class SetSlewRate(SimpleNumericCommand):
-    pattern = re.compile(r'^Sw(\d)$')
+    pattern = re.compile(r'^Sw ?(\d)$')
 
 
 # XXX FIXME: there seems to be a parameter missing in the manual
@@ -912,7 +913,7 @@ class SetObjectSelectionString(SimpleCommand):
 class SetTargetAzimuth(SimpleNumericCommand):
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
-    pattern = re.compile(r'^Sz(?P<degrees>\d{3})\*(?P<minutes>\d{2})$')
+    pattern = re.compile(r'^Sz ?(?P<degrees>\d{3})\*(?P<minutes>\d{2})$')
 
 
 # Tracking
