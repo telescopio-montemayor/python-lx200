@@ -312,13 +312,13 @@ class GetSelectedTargetDeclination(GetSelectedObjectDeclination):
 
 @register
 class GetSelenographicLatitude(SimpleCommand):
-    load_path = 'mount.selenographic.latitude'
+    load_path = 'mount.target.selenographic.latitude'
     pattern = 'GE'
 
 
 @register
 class GetSelenographicLongitude(SimpleCommand):
-    load_path = 'mount.selenographic.longitude'
+    load_path = 'mount.target.selenographic.longitude'
     pattern = 'Ge'
 
 
@@ -551,6 +551,8 @@ class QueryHomeStatus(SimpleCommand):
 
 @register
 class ToggleTimeFormat(SimpleCommand):
+    store_path = 'mount.clock_format'
+    store_value = {'value': True}
     pattern = 'H'
 
 
@@ -697,7 +699,7 @@ class SetSlewRateToMax(SimpleCommand):
 @register
 class SetRightAscentionSlewRate(SimpleNumericCommand):
     default_type = float
-    store_path = 'mount.slew.right_ascencion'
+    store_path = 'mount.slew.rate.right_ascencion'
     pattern = re.compile(r'^RA ?(?P<value>\d\d\.\d)$')
 
 
@@ -709,7 +711,7 @@ class SetAzimuthSlewRate(SetRightAscentionSlewRate):
 @register
 class SetDeclinationSlewRate(SimpleNumericCommand):
     default_type = float
-    store_path = 'mount.slew.declination'
+    store_path = 'mount.slew.rate.declination'
     pattern = re.compile(r'^Re ?(?P<value>\d\d\.\d)$')
 
 
@@ -932,11 +934,13 @@ class SetLocalSiderealTime(SimpleNumericCommand):
 @register
 @attr.s
 class SetSiteLatitude(SignedDMSCommand):
+    store_path = 'site.latitude'
     pattern = re.compile(r'^St ?(?P<degrees>[-+ ]?\d{2})[\*:](?P<minutes>\d\d):(?P<seconds>\d\d)$')
 
 
 @register
 class SetTrackingRate(SimpleNumericCommand):
+    store_path = 'mount.tracking.rate'
     default_type = float
     pattern = re.compile(r'^ST ?(\d{2,4}\.?\d{0,6})')
 
@@ -973,6 +977,7 @@ class DisableAzimuthPEC(DisableRightAscencionPEC):
 
 @register
 class SetSlewRate(SimpleNumericCommand):
+    store_path = 'mount.slew.rate'
     pattern = re.compile(r'^Sw ?(\d)$')
 
 
@@ -1007,21 +1012,29 @@ class DecrementManualRate(SimpleCommand):
 
 @register
 class SetLunarTracking(SimpleCommand):
+    store_path = 'mount.tracking.rate_name'
+    store_value = {'value': 'LUNAR'}
     pattern = 'TL'
 
 
 @register
 class SelectCustomTrackingRate(SimpleCommand):
+    store_path = 'mount.tracking.rate_name'
+    store_value = {'value': 'CUSTOM'}
     pattern = 'TM'
 
 
 @register
 class SelectSiderealTrackingRate(SimpleCommand):
+    store_path = 'mount.tracking.rate_name'
+    store_value = {'value': 'SIDEREAL'}
     pattern = 'TQ'
 
 
 @register
 class SelectSolarTrackingRate(SimpleCommand):
+    store_path = 'mount.tracking.rate_name'
+    store_value = {'value': 'SOLAR'}
     pattern = 'TS'
 
 
