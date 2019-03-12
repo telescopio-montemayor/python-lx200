@@ -134,7 +134,9 @@ class HMSResponse(BaseResponse):
 @map_response(c.DecrementManualRate, c.EnableAltitudePEC, c.EnableAzimuthPEC, c.EnableRightAscencionPEC, c.DisableAltitudePEC)
 @map_response(c.DisableAzimuthPEC, c.DisableRightAscencionPEC)
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
+@attr.s
 class EmptyResponse(BaseResponse):
+    suffix = attr.ib(default='')
     pass
 
 
