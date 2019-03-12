@@ -32,6 +32,16 @@ class BaseCommand:
         """ Returns True if data can be parsed as this command"""
         raise NotImplementedError
 
+    def serialize(self):
+        """ Returns a dict with current data suitable to build a response """
+        try:
+            return self.store_value
+        except:
+            pass
+
+        to_include = [field for field in attr.fields(self.__class__) if field.repr]
+        return attr.asdict(self, filter=attr.filters.include(*to_include))
+
 
 class UnknownCommand(BaseCommand):
     @classmethod
