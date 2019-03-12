@@ -138,8 +138,8 @@ class HMSResponse(BaseResponse):
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
 @attr.s
 class EmptyResponse(BaseResponse):
-    suffix = attr.ib(default='', repr=False)
-    pass
+    def __str__(self):
+        return ''
 
 
 @register
