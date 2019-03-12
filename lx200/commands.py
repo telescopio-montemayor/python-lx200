@@ -83,7 +83,9 @@ class SimpleCommand(BaseCommand):
             return (data == cls.pattern) or (data == bytes(cls.pattern, 'utf-8'))
 
 
+@attr.s
 class SimpleNumericCommand(SimpleCommand):
+    value = attr.ib(default=0, repr=True)
     default_type = int
     type_map = {}
 
