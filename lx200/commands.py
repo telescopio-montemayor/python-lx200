@@ -112,6 +112,9 @@ class SimpleNumericCommand(SimpleCommand):
 @attr.s
 class SignedDMSCommand(SimpleNumericCommand):
     value = attr.ib(default=None, repr=False)
+    degrees = attr.ib(default=0)
+    minutes = attr.ib(default=0)
+    seconds = attr.ib(default=0)
 
     def parse(self, matches, data):
         super().parse(matches, data)
@@ -728,9 +731,6 @@ class SetGuideRate(SimpleNumericCommand):
 @attr.s
 class SetTargetAltitude(SignedDMSCommand):
     store_path = 'mount.target.altitude'
-    degrees = attr.ib(default=None)
-    minutes = attr.ib(default=None)
-    seconds = attr.ib(default=None)
     pattern = re.compile(r'^Sa ?(?P<degrees>[-+ ]?\d{2})\*(?P<minutes>\d{2})\'?(?P<seconds>\d{2})?$')
 
 
@@ -741,12 +741,14 @@ class SetBrighterLimit(SimpleNumericCommand):
 
 
 @register
+@attr.s
 class SetBaudRate(SimpleNumericCommand):
     store_path = 'comms.baud_rate'
     pattern = re.compile(r'^SB ?(?P<value>\d)$')
 
 
 @register
+@attr.s
 class SetHandboxDate(SimpleNumericCommand):
     store_path = 'site.date'
     value = attr.ib(default=None, repr=False)
@@ -760,9 +762,6 @@ class SetHandboxDate(SimpleNumericCommand):
 @attr.s
 class SetTargetDeclination(SignedDMSCommand):
     store_path = 'mount.target.declination'
-    degrees = attr.ib(default=None)
-    minutes = attr.ib(default=None)
-    seconds = attr.ib(default=None)
     pattern = re.compile(r'^Sd ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
@@ -770,9 +769,6 @@ class SetTargetDeclination(SignedDMSCommand):
 @attr.s
 class SetTargetSelenographicLatitude(SignedDMSCommand):
     store_path = 'mount.target.selenographic.latitude'
-    degrees = attr.ib(default=None)
-    minutes = attr.ib(default=None)
-    seconds = attr.ib(default=None)
     pattern = re.compile(r'^SE ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
@@ -780,9 +776,6 @@ class SetTargetSelenographicLatitude(SignedDMSCommand):
 @attr.s
 class SetTargetSelenographicLongitude(SignedDMSCommand):
     store_path = 'mount.target.selenographic.longitude'
-    degrees = attr.ib(default=None)
-    minutes = attr.ib(default=None)
-    seconds = attr.ib(default=None)
     pattern = re.compile(r'^Se ?(?P<degrees>[-+ ]?\d{2}):(?P<minutes>\d{2}):?(?P<seconds>\d{2})?$')
 
 
@@ -939,8 +932,6 @@ class SetLocalSiderealTime(SimpleNumericCommand):
 @register
 @attr.s
 class SetSiteLatitude(SignedDMSCommand):
-    degrees = attr.ib(default=None)
-    minutes = attr.ib(default=None)
     pattern = re.compile(r'^St ?(?P<degrees>[-+ ]?\d{2})[\*:](?P<minutes>\d\d):(?P<seconds>\d\d)$')
 
 
