@@ -195,7 +195,7 @@ class GetHomeData(BaseResponse):
 @map_response(c.SetHandboxDate)
 @attr.s
 class SetHandboxDate(BooleanResponse):
-    output_true = attr.ib(default='1Updating  Planetary Data#                                           #')
+    output_true = attr.ib(default='1Updating  Planetary Data#                       #')
 
 
 @register
