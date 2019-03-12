@@ -131,6 +131,7 @@ class SignedDMSCommand(SimpleNumericCommand):
 @register
 class ACK(SimpleCommand):
     """ Alignment Query """
+    load_path = 'mount.alignment_mode'
     pattern = '\x06'
 
 
@@ -150,16 +151,22 @@ class AutomaticAlignment(SimpleCommand):
 
 @register
 class LandAlignment(SimpleCommand):
+    store_path = 'mount.alignment_mode'
+    store_value = {'value': 'L'}
     pattern = 'AL'
 
 
 @register
 class PolarAlignment(SimpleCommand):
+    store_path = 'mount.alignment_mode'
+    store_value = {'value': 'P'}
     pattern = 'AP'
 
 
 @register
 class AltAzAlignment(SimpleCommand):
+    store_path = 'mount.alignment_mode'
+    store_value = {'value': 'A'}
     pattern = 'AA'
 
 
@@ -167,6 +174,7 @@ class AltAzAlignment(SimpleCommand):
 
 @register
 class SetAltitudeAntiBacklash(SimpleNumericCommand):
+    store_path = 'mount.backlash.altitude'
     pattern = re.compile(r'^\$BA ?(\d{1,2})$')
 
 
@@ -177,6 +185,7 @@ class SetDeclinationAntiBacklash(SetAltitudeAntiBacklash):
 
 @register
 class SetAzimuthAntiBacklash(SimpleNumericCommand):
+    store_path = 'mount.backlash.azimuth'
     pattern = re.compile(r'^\$BZ ?(\d{1,2})$')
 
 
@@ -223,6 +232,7 @@ class SyncDatabase(SimpleCommand):
 
 @register
 class DistanceBars(SimpleCommand):
+    load_path = 'mount.target.distance'
     pattern = 'D'
 
 
@@ -235,26 +245,31 @@ class DistanceBars(SimpleCommand):
 
 @register
 class GetAlignmentMenuEntry0(SimpleCommand):
+    load_path = 'mount.alignment.menu_0'
     pattern = 'G0'
 
 
 @register
 class GetAlignmentMenuEntry1(SimpleCommand):
+    load_path = 'mount.alignment.menu_1'
     pattern = 'G1'
 
 
 @register
 class GetAlignmentMenuEntry2(SimpleCommand):
+    load_path = 'mount.alignment.menu_2'
     pattern = 'G2'
 
 
 @register
 class GetLocalTime12H(SimpleCommand):
+    load_path = 'site.time'
     pattern = 'Ga'
 
 
 @register
 class GetAltitude(SimpleCommand):
+    load_path = 'mount.altitude'
     pattern = 'GA'
 
 
@@ -265,21 +280,25 @@ class GetBrowseBrighterMagnitudeLimit(SimpleCommand):
 
 @register
 class GetDate(SimpleCommand):
+    load_path = 'site.date'
     pattern = 'GC'
 
 
 @register
 class GetClockFormat(SimpleCommand):
+    load_path = 'mount.clock_format'
     pattern = 'Gc'
 
 
 @register
 class GetDeclination(SimpleCommand):
+    load_path = 'mount.declination'
     pattern = 'GD'
 
 
 @register
 class GetSelectedObjectDeclination(SimpleCommand):
+    load_path = 'mount.target.declination'
     pattern = 'Gd'
 
 
@@ -290,11 +309,13 @@ class GetSelectedTargetDeclination(GetSelectedObjectDeclination):
 
 @register
 class GetSelenographicLatitude(SimpleCommand):
+    load_path = 'mount.selenographic.latitude'
     pattern = 'GE'
 
 
 @register
 class GetSelenographicLongitude(SimpleCommand):
+    load_path = 'mount.selenographic.longitude'
     pattern = 'Ge'
 
 
@@ -310,16 +331,19 @@ class GetBrowseFaintMagnitudeLimit(SimpleCommand):
 
 @register
 class GetUTCOffsetTime(SimpleCommand):
+    load_path = 'site.utc_offset'
     pattern = 'GG'
 
 
 @register
 class GetSiteLongitude(SimpleCommand):
+    load_path = 'site.longitude'
     pattern = 'Gg'
 
 
 @register
 class GetDailySavingsTimeSettings(SimpleCommand):
+    load_path = 'site.dst'
     pattern = 'GH'
 
 
@@ -330,6 +354,7 @@ class GetHighLimit(SimpleCommand):
 
 @register
 class GetLocalTime24H(SimpleCommand):
+    load_path = 'site.time'
     pattern = 'GL'
 
 
@@ -345,26 +370,31 @@ class GetLargerSizeLimit(SimpleCommand):
 
 @register
 class GetSite1Name(SimpleCommand):
+    load_path = 'site.name_1'
     pattern = 'GM'
 
 
 @register
 class GetSite2Name(SimpleCommand):
+    load_path = 'site.name_2'
     pattern = 'GN'
 
 
 @register
 class GetSite3Name(SimpleCommand):
+    load_path = 'site.name_3'
     pattern = 'GO'
 
 
 @register
 class GetSite4Name(SimpleCommand):
+    load_path = 'site.name_4'
     pattern = 'GP'
 
 
 @register
 class GetBacklashValues(SimpleCommand):
+    load_path = 'mount.backlash.values'
     pattern = 'GpB'
 
 
@@ -390,11 +420,13 @@ class GetMinimumQualityForFind(SimpleCommand):
 
 @register
 class GetRightAscencion(SimpleCommand):
+    load_path = 'mount.right_ascencion'
     pattern = 'GR'
 
 
 @register
 class GetSelectedObjectRightAscencion(SimpleCommand):
+    load_path = 'mount.target.right_ascencion'
     pattern = 'Gr'
 
 
@@ -415,11 +447,13 @@ class GetSmallerSizeLimit(SimpleCommand):
 
 @register
 class GetTrackingRate(SimpleCommand):
+    load_path = 'mount.tracking.rate'
     pattern = 'GT'
 
 
 @register
 class GetSiteLatitude(SimpleCommand):
+    load_path = 'site.latitude'
     pattern = 'Gt'
 
 
@@ -455,6 +489,7 @@ class GetDeepskySearchString(SimpleCommand):
 
 @register
 class GetAzimuth(SimpleCommand):
+    load_path = 'mount.azimuth'
     pattern = 'GZ'
 
 
@@ -630,27 +665,36 @@ class HaltWestward(SimpleCommand):
 
 @register
 class SetSlewRateToCentering(SimpleCommand):
+    store_path = 'mount.slew.rate'
+    store_value = {'value': 'centering'}
     pattern = 'RC'
 
 
 @register
 class SetSlewRateToGuiding(SimpleCommand):
+    store_path = 'mount.slew.rate'
+    store_value = {'value': 'guiding'}
     pattern = 'RG'
 
 
 @register
 class SetSlewRateToFinding(SimpleCommand):
+    store_path = 'mount.slew.rate'
+    store_value = {'value': 'finding'}
     pattern = 'RM'
 
 
 @register
 class SetSlewRateToMax(SimpleCommand):
+    store_path = 'mount.slew.rate'
+    store_value = {'value': 'max'}
     pattern = 'RS'
 
 
 @register
 class SetRightAscentionSlewRate(SimpleNumericCommand):
     default_type = float
+    store_path = 'mount.slew.right_ascencion'
     pattern = re.compile(r'^RA ?(?P<value>\d\d\.\d)$')
 
 
@@ -662,6 +706,7 @@ class SetAzimuthSlewRate(SetRightAscentionSlewRate):
 @register
 class SetDeclinationSlewRate(SimpleNumericCommand):
     default_type = float
+    store_path = 'mount.slew.declination'
     pattern = re.compile(r'^Re ?(?P<value>\d\d\.\d)$')
 
 
@@ -673,6 +718,7 @@ class SetAltitudeSlewRate(SetDeclinationSlewRate):
 @register
 class SetGuideRate(SimpleNumericCommand):
     default_type = float
+    store_path = 'mount.guide.rate'
     pattern = re.compile(r'^Rg ?(?P<value>\d\d\.\d)$')
 
 
@@ -681,6 +727,7 @@ class SetGuideRate(SimpleNumericCommand):
 @register
 @attr.s
 class SetTargetAltitude(SignedDMSCommand):
+    store_path = 'mount.target.altitude'
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -695,11 +742,13 @@ class SetBrighterLimit(SimpleNumericCommand):
 
 @register
 class SetBaudRate(SimpleNumericCommand):
+    store_path = 'comms.baud_rate'
     pattern = re.compile(r'^SB ?(?P<value>\d)$')
 
 
 @register
 class SetHandboxDate(SimpleNumericCommand):
+    store_path = 'site.date'
     value = attr.ib(default=None, repr=False)
     month = attr.ib(default=None)
     day = attr.ib(default=None)
@@ -710,6 +759,7 @@ class SetHandboxDate(SimpleNumericCommand):
 @register
 @attr.s
 class SetTargetDeclination(SignedDMSCommand):
+    store_path = 'mount.target.declination'
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -719,6 +769,7 @@ class SetTargetDeclination(SignedDMSCommand):
 @register
 @attr.s
 class SetTargetSelenographicLatitude(SignedDMSCommand):
+    store_path = 'mount.target.selenographic.latitude'
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -728,6 +779,7 @@ class SetTargetSelenographicLatitude(SignedDMSCommand):
 @register
 @attr.s
 class SetTargetSelenographicLongitude(SignedDMSCommand):
+    store_path = 'mount.target.selenographic.longitude'
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
@@ -748,6 +800,7 @@ class SetFieldDiameter(SimpleNumericCommand):
 @register
 @attr.s
 class SetSiteLongitude(SimpleNumericCommand):
+    store_path = 'site.longitude'
     value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
@@ -756,12 +809,14 @@ class SetSiteLongitude(SimpleNumericCommand):
 
 @register
 class SetUTCOffset(SimpleNumericCommand):
+    store_path = 'site.utc_offset'
     default_type = float
     pattern = re.compile(r'^SG ?(?P<value>[-+ ]?\d\d\.?\d?)$')
 
 
 @register
 class SetDSTEnabled(SimpleNumericCommand):
+    store_path = 'site.dst'
     pattern = re.compile(r'^SH ?(?P<value>\d)$')
 
 
@@ -786,6 +841,7 @@ class SetLargestObjectSize(SimpleNumericCommand):
 @register
 @attr.s
 class SetLocalTime(SimpleNumericCommand):
+    store_path = 'site.time'
     value = attr.ib(default=None, repr=False)
     hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
@@ -805,24 +861,28 @@ class DisableFlexureCorrection(SimpleCommand):
 
 @register
 class SetSite1Name(SimpleNumericCommand):
+    store_path = 'site.name_1'
     default_type = str
     pattern = re.compile(r'^SM ?([\w\s]{1,15})')
 
 
 @register
 class SetSite2Name(SimpleNumericCommand):
+    store_path = 'site.name_2'
     default_type = str
     pattern = re.compile(r'^SN ?([\w\s]{1,15})')
 
 
 @register
 class SetSite3Name(SimpleNumericCommand):
+    store_path = 'site.name_3'
     default_type = str
     pattern = re.compile(r'^SO ?([\w\s]{1,15})')
 
 
 @register
 class SetSite4Name(SimpleNumericCommand):
+    store_path = 'site.name_4'
     default_type = str
     pattern = re.compile(r'^SP ?([\w\s]{1,15})')
 
@@ -855,6 +915,7 @@ class StepQualityLimit(SimpleCommand):
 @register
 @attr.s
 class SetTargetRightAscencion(SimpleNumericCommand):
+    store_path = 'mount.target.right_ascencion'
     value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
@@ -933,6 +994,7 @@ class SetObjectSelectionString(SimpleCommand):
 @register
 @attr.s
 class SetTargetAzimuth(SimpleNumericCommand):
+    store_path = 'mount.target.azimuth'
     value = attr.ib(default=None, repr=False)
     degrees = attr.ib(default=None)
     minutes = attr.ib(default=None)
