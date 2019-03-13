@@ -1002,12 +1002,12 @@ class SetTargetAzimuth(SimpleNumericCommand):
 # These two are also defined in the 'Set' group but do the same thing, so we lump them in a single command.
 @register
 class IncrementManualRate(SimpleCommand):
-    pattern = re.compile('(^ST\+$)|(^T\+$)')
+    pattern = re.compile(r'(^ST\+$)|(^T\+$)')
 
 
 @register
 class DecrementManualRate(SimpleCommand):
-    pattern = re.compile('(^ST\-$)|(^T\-$)')
+    pattern = re.compile(r'(^ST\-$)|(^T\-$)')
 
 
 @register
