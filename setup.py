@@ -16,7 +16,8 @@ setup(
     namespace_packages=['lx200'],
     include_package_data=True,
     install_requires=[
-        'attrs'
+        'attrs',
+        'aiohttp'
     ],
     license='AGPL-3.0',
     description='Utilities to generate and parse LX200 protocol messages',
