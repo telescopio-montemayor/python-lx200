@@ -17,7 +17,9 @@ setup(
     include_package_data=True,
     install_requires=[
         'attrs',
-        'aiohttp'
+        'aiohttp',
+        'pyyaml',
+        'munch'
     ],
     license='AGPL-3.0',
     description='Utilities to generate and parse LX200 protocol messages',
