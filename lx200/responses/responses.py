@@ -144,6 +144,7 @@ class HMSResponse(BaseResponse):
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
 @attr.s
 class EmptyResponse(BaseResponse):
+    value = attr.ib(default='', repr=False)
     def __str__(self):
         return ''
 
