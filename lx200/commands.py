@@ -635,6 +635,12 @@ class PrecisionPositionToggle(SimpleCommand):
     pattern = 'U'
 
 
+@register
+class SelectSite(SimpleNumericCommand):
+    store_path = 'site.selected'
+    pattern = re.compile(r'^W ?(\d)$')
+
+
 # XXX TODO: Smart Drive Control
 
 # Movement Commands (halt)

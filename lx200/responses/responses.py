@@ -140,7 +140,7 @@ class HMSResponse(BaseResponse):
 @map_response(c.SetRightAscentionSlewRate, c.SetDeclinationSlewRate, c.SetAltitudeSlewRate, c.SetAzimuthSlewRate, c.SetGuideRate)
 @map_response(c.EnableFlexureCorrection, c.DisableFlexureCorrection, c.SetDSTEnabled, c.StepQualityLimit, c.IncrementManualRate)
 @map_response(c.DecrementManualRate, c.EnableAltitudePEC, c.EnableAzimuthPEC, c.EnableRightAscencionPEC, c.DisableAltitudePEC)
-@map_response(c.DisableAzimuthPEC, c.DisableRightAscencionPEC)
+@map_response(c.DisableAzimuthPEC, c.DisableRightAscencionPEC, c.SelectSite)
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
 @attr.s
 class EmptyResponse(BaseResponse):

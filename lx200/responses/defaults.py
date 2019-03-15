@@ -36,3 +36,7 @@ add_default(c.GetLowerLimit, {
 add_default(c.GetHighLimit, {
     'value': 110
 })
+
+add_default(c.SelectSite, {
+    'value': 1
+})
