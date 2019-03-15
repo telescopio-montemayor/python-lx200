@@ -211,11 +211,13 @@ class DecreaseReticleBrightness(SimpleCommand):
 
 @register
 class SetReticleFlashRate(SimpleNumericCommand):
+    store_path = 'reticle.flash.rate'
     pattern = re.compile(r'^\$B ?(\d)$')
 
 
 @register
 class SetReticleFlashDutyCycle(SimpleNumericCommand):
+    store_path = 'reticle.flash.duty_cycle'
     pattern = re.compile(r'^\$BD ?(\d{1,2})$')
 
 
@@ -421,7 +423,7 @@ class GetSiteLongitude(SimpleCommand):
 
 @register
 class GetDailySavingsTimeSettings(SimpleCommand):
-    load_path = 'site.dst'
+    load_path = 'site.dst.enabled'
     pattern = 'GH'
 
 
@@ -537,11 +539,13 @@ class GetSiteLatitude(SimpleCommand):
 
 @register
 class GetFirmwareDate(SimpleCommand):
+    load_path = 'firmware.date'
     pattern = 'GVD'
 
 
 @register
 class GetFirmwareNumber(SimpleCommand):
+    load_path = 'firmware.number'
     pattern = 'GVN'
 
 
@@ -552,6 +556,7 @@ class GetProductName(SimpleCommand):
 
 @register
 class GetFirmwareTime(SimpleCommand):
+    load_path = 'firmware.time'
     pattern = 'GVT'
 
 
@@ -701,12 +706,16 @@ class SlewToTarget(SlewToTargetObject):
 
 @register
 class HighPrecisionToggle(SimpleCommand):
+    store_path = 'high_precision_enabled'
+    store_value = {'value': True}
     pattern = 'P'
 
 
 # XXX FIXME: This also appears documented as 'User Format Control'
 @register
 class PrecisionPositionToggle(SimpleCommand):
+    store_path = 'high_precision_enabled'
+    store_value = {'value': True}
     pattern = 'U'
 
 
@@ -892,7 +901,7 @@ class SetUTCOffset(SimpleNumericCommand):
 
 @register
 class SetDSTEnabled(SimpleNumericCommand):
-    store_path = 'site.dst'
+    store_path = 'site.dst.enabled'
     pattern = re.compile(r'^SH ?(?P<value>\d)$')
 
 
@@ -927,11 +936,15 @@ class SetLocalTime(SimpleNumericCommand):
 
 @register
 class EnableFlexureCorrection(SimpleCommand):
+    store_path = 'mount.correction.flexure.enabled'
+    store_value = {'value': True}
     pattern = 'Sm+'
 
 
 @register
 class DisableFlexureCorrection(SimpleCommand):
+    store_path = 'mount.correction.flexure.enabled'
+    store_value = {'value': False}
     pattern = 'Sm-'
 
 
@@ -1028,16 +1041,22 @@ class SetTrackingRate(SimpleNumericCommand):
 
 @register
 class EnableAltitudePEC(SimpleCommand):
+    store_path = 'mount.correction.pec.altitude.enabled'
+    store_value = {'value': True}
     pattern = 'STA+'
 
 
 @register
 class DisableAltitudePEC(SimpleCommand):
+    store_path = 'mount.correction.pec.altitude.enabled'
+    store_value = {'value': False}
     pattern = 'STA-'
 
 
 @register
 class EnableRightAscencionPEC(SimpleCommand):
+    store_path = 'mount.correction.pec.right_ascencion.enabled'
+    store_value = {'value': True}
     pattern = 'STZ+'
 
 
@@ -1048,6 +1067,8 @@ class EnableAzimuthPEC(EnableRightAscencionPEC):
 
 @register
 class DisableRightAscencionPEC(SimpleCommand):
+    store_path = 'mount.correction.pec.right_ascencion.enabled'
+    store_value = {'value': False}
     pattern = 'STZ-'
 
 

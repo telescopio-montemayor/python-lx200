@@ -84,4 +84,6 @@ add_default(c.GetClockFormat, {
     'value': True
 })
 
-
+add_default(c.SetDSTEnabled, {
+    'value': False
+})
