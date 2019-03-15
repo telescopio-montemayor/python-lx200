@@ -77,6 +77,12 @@ class BaseResponse:
     def format_value(self, value):
         return str(value)
 
+    def serialize(self):
+        """ Returns a dict with current data """
+
+        to_include = [field for field in attr.fields(self.__class__) if field.repr and field.name != 'command']
+        return attr.asdict(self, filter=attr.filters.include(*to_include))
+
 
 @register
 @map_response(c.GetAltitude, c.GetDeclination, c.GetSelectedObjectDeclination, c.GetSelectedTargetDeclination)
