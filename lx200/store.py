@@ -2,6 +2,9 @@
 
 from collections import defaultdict
 
+import lx200.responses.defaults as response_defaults
+import lx200.commands
+
 
 def get_paths(command):
     return {
@@ -21,14 +24,26 @@ def get_store_path(command):
 
 
 class Store(defaultdict):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, seed_from_defaults=True, *args, **kwargs):
 
-        return super().__init__(Store, *args, **kwargs)
+        super().__init__(lambda: defaultdict(dict), *args, **kwargs)
+
+        if seed_from_defaults:
+            paths_to_create = [get_store_path(cmd) for cmd in lx200.commands.ALL_COMMANDS]
+            for path in paths_to_create:
+                if path is None:
+                    continue
+                self[path] = defaultdict(dict)
+
+            for command, defaults in response_defaults.COMMAND_DEFAULT_MAP.items():
+                path = get_store_path(command)
+                if path is None:
+                    continue
+                self[path].update(defaults)
 
     def commit_command(self, command):
         path = get_store_path(command)
 
-        # XXX FIXME: we should probably log this, but many commands will not implement the store interface
         if path is None:
             return
 
