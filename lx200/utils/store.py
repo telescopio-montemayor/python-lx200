@@ -15,12 +15,8 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    for command in lx200.commands.ALL_COMMANDS:
-        cmd = command()
-        store.commit_command(cmd)
-
     if args.format == 'json':
-        serialized = munch.munchify(store).toJSON(indent=args.indent)
+        serialized = munch.munchify(store).toJSON(indent=args.indent, sort_keys=True)
     else:
         serialized = munch.munchify(store).toYAML(indent=args.indent)
 
