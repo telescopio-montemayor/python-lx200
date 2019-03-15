@@ -37,6 +37,38 @@ add_default(c.GetHighLimit, {
     'value': 110
 })
 
+add_default(c.GetAlignmentMenuEntry0, {
+    'value': 'Menu0'
+})
+
+add_default(c.GetAlignmentMenuEntry1, {
+    'value': 'Menu1'
+})
+
+add_default(c.GetAlignmentMenuEntry2, {
+    'value': 'Menu2'
+})
+
+# XXX WARNING: LX200 specifies only three letters
+add_default(c.GetSite1Name, {
+    'value': 'SI1'
+})
+add_default(c.GetSite2Name, {
+    'value': 'SI2'
+})
+add_default(c.GetSite3Name, {
+    'value': 'SI3'
+})
+add_default(c.GetSite4Name, {
+    'value': 'SI4'
+})
 add_default(c.SelectSite, {
     'value': 1
 })
+
+# True: 24H
+add_default(c.GetClockFormat, {
+    'value': True
+})
+
+
