@@ -49,6 +49,19 @@ add_default(c.GetAlignmentMenuEntry2, {
     'value': 'Menu2'
 })
 
+add_default(c.GetTrackingRate, {
+    'value': 60.0
+})
+
+add_default(c.SelectSiderealTrackingRate, {
+    'value': 'SIDEREAL'
+})
+
+add_default(c.QueryFocuserBusyStatus, {
+    'value': False
+})
+
+
 # XXX WARNING: LX200 specifies only three letters
 add_default(c.GetSite1Name, {
     'value': 'SI1'
