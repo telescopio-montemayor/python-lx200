@@ -289,7 +289,7 @@ class GetDate(SimpleCommand):
 
 @register
 class GetClockFormat(SimpleCommand):
-    load_path = 'mount.clock_format'
+    load_path = 'mount.clock_format_24h'
     pattern = 'Gc'
 
 
@@ -551,7 +551,7 @@ class QueryHomeStatus(SimpleCommand):
 
 @register
 class ToggleTimeFormat(SimpleCommand):
-    store_path = 'mount.clock_format'
+    store_path = 'mount.clock_format_24h'
     store_value = {'value': True}
     pattern = 'H'
 
