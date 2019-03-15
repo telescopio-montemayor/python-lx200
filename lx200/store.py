@@ -29,11 +29,15 @@ class Store(defaultdict):
         super().__init__(lambda: defaultdict(dict), *args, **kwargs)
 
         if seed_from_defaults:
-            paths_to_create = [get_store_path(cmd) for cmd in lx200.commands.ALL_COMMANDS]
-            for path in paths_to_create:
+            for command in lx200.commands.ALL_COMMANDS:
+                path = get_store_path(command)
                 if path is None:
                     continue
-                self[path] = defaultdict(dict)
+
+                stored_data = self[path]
+                if hasattr(command, 'store_value'):
+                    for key, value in command.store_value.items():
+                        stored_data.setdefault(key, value)
 
             for command, defaults in response_defaults.COMMAND_DEFAULT_MAP.items():
                 path = get_store_path(command)
