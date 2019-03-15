@@ -240,7 +240,82 @@ class DistanceBars(SimpleCommand):
 
 
 # XXX TODO: Fan / Heater commands
-# XXX TODO: Focuser Control
+
+# Focuser Control
+
+@register
+class MoveFocuserInward(SimpleCommand):
+    pattern = 'F+'
+
+
+@register
+class MoveFocuserOutward(SimpleCommand):
+    pattern = 'F-'
+
+
+@register
+class PulseFocuser(SimpleNumericCommand):
+    pattern = re.compile(r'^FP ?([-+ ]?\d{1,5})$')
+
+
+@register
+class TiltCorrectorPlate(SimpleCommand):
+    default_type = str
+    pattern = re.compile(r'^FC ?([nsew])$')
+
+
+@register
+class HaltFocuserMotion(SimpleCommand):
+    pattern = 'FQ'
+
+
+@register
+class SetFocuserPreset(SimpleNumericCommand):
+    pattern = re.compile(r'^FLD ?([123456789])$')
+
+
+@register
+@attr.s
+class SetFocuserPresetName(SimpleNumericCommand):
+    default_type = str
+    store_path = 'focuser.presets.name_{idx}'
+    idx = attr.ib(default=1)
+    pattern = re.compile(r'^FLN ?(?P<idx>[123456789])(?P<value>[\w\s]+)$')
+
+
+@register
+class SyncFocuserToPreset(SimpleNumericCommand):
+    pattern = re.compile(r'^FLS ?([123456789])$')
+
+
+@register
+class SetFocuserSpeedFastest(SimpleCommand):
+    store_path = 'focuser.speed'
+    store_value = {'value': 4}
+    pattern = 'FF'
+
+
+@register
+class SetFocuserSpeedSlowest(SimpleCommand):
+    store_path = 'focuser.speed'
+    store_value = {'value': 1}
+    pattern = 'FS'
+
+
+@register
+@attr.s
+class SetFocuserSpeed(SimpleNumericCommand):
+    value = attr.ib(default=1)
+    store_path = 'focuser.speed'
+    pattern = re.compile(r'^F ?([1234])$')
+
+
+@register
+class QueryFocuserBusyStatus(SimpleCommand):
+    load_path = 'focuser.busy'
+    pattern = 'FB'
+
+
 # XXX TODO: GPS / Magnetometer
 
 

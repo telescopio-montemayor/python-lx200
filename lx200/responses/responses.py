@@ -142,6 +142,8 @@ class HMSResponse(BaseResponse):
 @map_response(c.DecrementManualRate, c.EnableAltitudePEC, c.EnableAzimuthPEC, c.EnableRightAscencionPEC, c.DisableAltitudePEC)
 @map_response(c.DisableAzimuthPEC, c.DisableRightAscencionPEC, c.SelectSite)
 @map_response(c.SetLunarTracking, c.SelectSiderealTrackingRate, c.SelectCustomTrackingRate, c.SelectSolarTrackingRate)
+@map_response(c.MoveFocuserInward, c.MoveFocuserOutward, c.HaltFocuserMotion, c.SetFocuserSpeedFastest, c.SetFocuserSpeedSlowest)
+@map_response(c.SetFocuserSpeed, c.TiltCorrectorPlate, c.SetFocuserPreset, c.SyncFocuserToPreset, c.SetFocuserPresetName, c.PulseFocuser)
 @attr.s
 class EmptyResponse(BaseResponse):
     value = attr.ib(default='', repr=False)
@@ -158,6 +160,7 @@ class EmptyResponse(BaseResponse):
 @map_response(c.SetLocalTime, c.SetLocalSiderealTime, c.BypassDSTEntry)
 @map_response(c.SetSite1Name, c.SetSite2Name, c.SetSite3Name, c.SetSite4Name, c.SetObjectSelectionString)
 @map_response(c.SetLowestElevation, c.SetBacklashValues, c.SetHomeData, c.SetSensorOffsets, c.SetSlewRate)
+@map_response(c.QueryFocuserBusyStatus)
 @attr.s
 class BooleanResponse(BaseResponse):
     value = attr.ib(default=True)
