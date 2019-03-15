@@ -15,12 +15,20 @@ def get_paths(command):
 
 def get_load_path(command):
     paths = get_paths(command)
-    return paths['load'] or paths['store']
+    path = paths['load'] or paths['store']
+
+    if path is not None:
+        path = path.format(**command.serialize())
+    return path
 
 
 def get_store_path(command):
     paths = get_paths(command)
-    return paths['store'] or paths['load']
+    path = paths['store'] or paths['load']
+
+    if path is not None:
+        path = path.format(**command.serialize())
+    return path
 
 
 class Store(defaultdict):
@@ -29,7 +37,8 @@ class Store(defaultdict):
         super().__init__(lambda: defaultdict(dict), *args, **kwargs)
 
         if seed_from_defaults:
-            for command in lx200.commands.ALL_COMMANDS:
+            for cmd in lx200.commands.ALL_COMMANDS:
+                command = cmd()
                 path = get_store_path(command)
                 if path is None:
                     continue
@@ -39,7 +48,8 @@ class Store(defaultdict):
                     for key, value in command.store_value.items():
                         stored_data.setdefault(key, value)
 
-            for command, defaults in response_defaults.COMMAND_DEFAULT_MAP.items():
+            for cmd, defaults in response_defaults.COMMAND_DEFAULT_MAP.items():
+                command = cmd()
                 path = get_store_path(command)
                 if path is None:
                     continue
