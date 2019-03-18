@@ -13,7 +13,6 @@ setup(
     name='python-lx200',
     version=__version__,
     packages=find_packages(),
-    namespace_packages=['lx200'],
     include_package_data=True,
     install_requires=[
         'attrs',
