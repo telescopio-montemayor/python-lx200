@@ -1006,13 +1006,13 @@ class StepQualityLimit(SimpleCommand):
 class SetTargetRightAscencion(SimpleNumericCommand):
     store_path = 'mount.target.right_ascencion'
     value = attr.ib(default=None, repr=False)
-    degrees = attr.ib(default=None)
+    hours = attr.ib(default=None)
     minutes = attr.ib(default=None)
     seconds = attr.ib(default=None)
     type_map = {
         'minutes': float
     }
-    pattern = re.compile(r'^Sr ?(?P<degrees>\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
+    pattern = re.compile(r'^Sr ?(?P<hours>\d{2}):(?P<minutes>\d{2}\.?\d?):?(?P<seconds>\d{2})?$')
 
 
 @register
