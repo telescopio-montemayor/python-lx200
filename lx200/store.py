@@ -2,6 +2,8 @@
 
 from collections import defaultdict
 
+import munch
+
 import lx200.responses.defaults as response_defaults
 import lx200.commands
 
@@ -79,3 +81,9 @@ class Store(defaultdict):
             setattr(response, key, value)
 
         return response
+
+    def toJSON(self, indent=4):
+        return munch.munchify(self).toJSON(indent=indent, sort_keys=True)
+
+    def toYAML(self, indent=4):
+        return munch.munchify(self).toYAML(indent=indent)
