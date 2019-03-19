@@ -1,5 +1,4 @@
 import argparse
-import munch
 
 import lx200.store
 import lx200.commands
@@ -16,8 +15,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.format == 'json':
-        serialized = munch.munchify(store).toJSON(indent=args.indent, sort_keys=True)
+        serialized = store.toJSON(indent=args.indent)
     else:
-        serialized = munch.munchify(store).toYAML(indent=args.indent)
+        serialized = store.toYAML(indent=args.indent)
 
     print(serialized)
