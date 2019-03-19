@@ -75,6 +75,9 @@ class Store(defaultdict):
             raise ValueError('Response {} does not have a command assigned'.format(response))
 
         path = get_load_path(command)
+        if path is None:
+            return
+
         data = self[path]
 
         for key, value in data.items():
