@@ -562,6 +562,7 @@ class GetFirmwareTime(SimpleCommand):
 
 @register
 class GetAlignmentStatus(SimpleCommand):
+    load_path = 'mount.alignment_status'
     pattern = 'GW'
 
 

@@ -62,6 +62,13 @@ add_default(c.QueryFocuserBusyStatus, {
 })
 
 
+add_default(c.GetAlignmentStatus, {
+    'mount': 'P',
+    'is_tracking': False,
+    'alignment': 0,
+})
+
+
 # XXX WARNING: LX200 specifies only three letters
 add_default(c.GetSite1Name, {
     'value': 'SI1'
