@@ -53,9 +53,9 @@ async def run():
     parser = argparse.ArgumentParser(description='Simulates an LX200 compatible telescope with tcp connection', prog='lx200.examples.tcpserver')
 
     parser.add_argument('--verbose', required=False, default=False, action='store_true')
-    parser.add_argument('--port', type=int, required=False, default=7634)
-    parser.add_argument('--web-port', type=int, required=False, default=8081)
-    parser.add_argument('--host', type=str, required=False, default='127.0.0.1')
+    parser.add_argument('--port', type=int, required=False, default=7634, help='TCP port for the LX200 server (%(default)s)')
+    parser.add_argument('--web-port', type=int, required=False, default=8081, help='TCP port for the status server (%(default)s)')
+    parser.add_argument('--host', type=str, required=False, default='127.0.0.1', help='Host for all the servers (%(default)s)')
     args = parser.parse_args()
 
     if args.verbose:
